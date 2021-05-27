@@ -1,0 +1,56 @@
+/* 
+   header font: 'Pacifico', cursive;
+   body font: 'Montserrat', sans-seri;
+    */
+
+
+* {
+    box-sizing: border-box;
+}
+
+.text {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* all header styles */
+#header {
+    display: flex;
+    flex-direction: row;
+    height: 150px;
+    background-color: #49b7f4;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+}
+
+#clock {
+    float: left;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#title {
+    font-family: 'Pacifico', cursive;
+    font-size: 5rem;
+    font-style: italic;
+}
+
+#quick-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* all main styles */
+
+#hero-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#project-nav {
+    position: absolute;
+    width: 325px;
+    background-color: lightgrey;
+    top: 150px;
+    bottom: 0px;
+}
