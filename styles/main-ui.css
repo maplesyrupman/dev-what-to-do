@@ -53,4 +53,50 @@
     background-color: lightgrey;
     top: 150px;
     bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    padding: 13px;
+    gap: 7px;
+}
+
+#add-project-btn {
+    height: 40px;
+    background-color: red;
+    padding: 7px;
+    text-align: center;
+    text-justify: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.65rem;
+    border-radius: 15px;
+}
+
+#project-nav-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: fit-content;
+}
+
+.project-tab-div {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    background-color: red;
+    padding: 12px;
+    justify-content: space-between;
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+.project-tab-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.65rem;
+    
+}
+
+.button-div {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
