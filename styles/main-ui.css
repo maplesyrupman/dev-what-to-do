@@ -61,7 +61,7 @@
 
 #add-project-btn {
     height: 40px;
-    background-color: red;
+    background-color: #49b7f4;
     padding: 7px;
     text-align: center;
     text-justify: center;
@@ -82,7 +82,7 @@
     flex-direction: row;
     width: fit-content;
     height: fit-content;
-    background-color: red;
+    background-color: #49b7f4;
     padding: 12px;
     justify-content: space-between;
     border: 3px solid black;
@@ -100,3 +100,4 @@
     flex-direction: row;
     gap: 5px;
 }
+

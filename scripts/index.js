@@ -19,12 +19,24 @@ let projects = {}
 projects[testProject.getName()] = testProject;
 projects[testProject2.getName()] = testProject2;
 projects[testProject3.getName()] = testProject3; 
-console.log(projects);
+
 
 domOps.displayProjectNav(projects);
 
-document.getElementById('add-project-btn');
+const addProjectBtn = document.getElementById('add-project-btn');
+addProjectBtn.addEventListener('click', function() {
+    domOps.displayNewProjectForm();
 
+    let cancleNewProjectBtn = document.getElementById('cancleNewProjectBtn');
+    cancleNewProjectBtn.addEventListener('click', domOps.removeNewProjectForm);
 
+    let confirmNewProjectBtn = document.getElementById('confirmNewProjectBtn');
+    confirmNewProjectBtn.addEventListener('click', () => {
+        const newProjectName = document.getElementById('newProjectNameField').value;
+        projects[newProjectName] = app.projectFactory(newProjectName);
+        domOps.createNewProjectTab(newProjectName, projects);
+        domOps.removeNewProjectForm();
+    });
+});
 
 
