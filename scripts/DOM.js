@@ -122,9 +122,20 @@ const domOps = (() => {
         toDelete.remove();
     }
 
-    const displayProjectSublists = (projectName, projects) => {
+    const createSublist = (sublist) => {
+        const sublistDiv = document.createElement('div');
+        sublistDiv.classList.add('sublist-div');
+        const sublistTitle = document.createElement('h4');
+        sublistTitle.textContent = sublist.getName();
+        sublistTitle.classList.add('sublist-title');
+        sublistDiv.appendChild(sublistTitle);
+        
+        return sublistDiv;
+    }
+
+    const displaySublists = (projectName, projects) => {
         let project = projects[projectName];
-        let sublists = project.get
+        let sublists = project.getSublists();
     }
 
     return {

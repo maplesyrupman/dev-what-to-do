@@ -1,7 +1,7 @@
 const app = (()=> {
     const projectFactory = (name) => {
         let projectName = name;
-        let subLists = {};
+        let sublists = {};
     
         const changeName = (newName) => {
             projectName = newName;
@@ -11,37 +11,37 @@ const app = (()=> {
             return projectName;
         }
 
-        const addSubList = (subListName, subListObj) => {
-            subLists[subListName] = subListObj;
+        const addSublist = (sublistName, sublistObj) => {
+            sublists[sublistName] = sublistObj;
         }
 
-        const removeSubList = (subListName) => {
-            delete subLists[subListName];
+        const removeSublist = (subListName) => {
+            delete sublists[sublistName];
         }
 
-        const getSubLists = () => {
-            return subLists;
+        const getSublists = () => {
+            return sublists;
         }
     
         return {
             changeName,
             getName,
-            addSubList, 
-            removeSubList, 
-            getSubLists, 
+            addSublist, 
+            removeSublist, 
+            getSublists, 
         }
     };
 
-    const subListFactory = (name) => {
-        let subListName = name;
+    const sublistFactory = (name) => {
+        let sublistName = name;
         let tasks = {};
 
         const getName = () => {
-            return subListName;
+            return sublistName;
         }
 
         const changeName = (newName) => {
-            subListName = newName;
+            sublistName = newName;
         }
 
         const getTasks = () => {
@@ -115,7 +115,7 @@ const app = (()=> {
 
     return {
         projectFactory,
-        subListFactory,
+        sublistFactory,
         taskFactory,
     }
 })();
