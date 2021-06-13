@@ -11,8 +11,8 @@ let sublist2 = app.sublistFactory('sublist 2');
 let sublist3 = app.sublistFactory('sublist 3');
 
 testProject.addSublist(sublist1.getName(), sublist1);
-testProject2.addSublist(sublist2.getName(), sublist2);
-testProject3.addSublist(sublist3.getName(), sublist3);
+testProject.addSublist(sublist2.getName(), sublist2);
+testProject.addSublist(sublist3.getName(), sublist3);
 
 
 let projects = {}
@@ -38,5 +38,7 @@ addProjectBtn.addEventListener('click', function() {
         domOps.removeNewProjectForm();
     });
 });
+
+domOps.displaySublists('test project', projects);
 
 

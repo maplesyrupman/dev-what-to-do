@@ -136,6 +136,11 @@ const domOps = (() => {
     const displaySublists = (projectName, projects) => {
         let project = projects[projectName];
         let sublists = project.getSublists();
+
+        for (let i=0; i<sublists.length; i++) {
+            let sublist = sublists[i];
+            projectDisplay.appendChild(createSublist(sublist));
+        }
     }
 
     return {
@@ -144,6 +149,7 @@ const domOps = (() => {
         removeNewProjectForm,
         createNewProjectTab,
         deleteProjectTab,
+        displaySublists
     }
 
 })();
