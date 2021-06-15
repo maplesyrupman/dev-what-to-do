@@ -1,5 +1,6 @@
 import app from './app.js';
 import domOps from './DOM.js';
+import displayController from './display-controller.js';
 
 
 let testProject = app.projectFactory('test project');
@@ -9,6 +10,12 @@ let testProject3 = app.projectFactory('test project 3');
 let sublist1 = app.sublistFactory('sublist 1');
 let sublist2 = app.sublistFactory('sublist 2');
 let sublist3 = app.sublistFactory('sublist 3');
+
+let task1 = app.taskFactory('test', 'this is a test', 'today');
+let task2 = app.taskFactory('another test', 'this is another test', 'tomorrow');
+
+sublist1.addTask(task1);
+sublist1.addTask(task2);
 
 testProject.addSublist(sublist1.getName(), sublist1);
 testProject.addSublist(sublist2.getName(), sublist2);
@@ -20,25 +27,6 @@ projects[testProject.getName()] = testProject;
 projects[testProject2.getName()] = testProject2;
 projects[testProject3.getName()] = testProject3; 
 
-
-domOps.displayProjectNav(projects);
-
-const addProjectBtn = document.getElementById('add-project-btn');
-addProjectBtn.addEventListener('click', function() {
-    domOps.displayNewProjectForm();
-
-    let cancleNewProjectBtn = document.getElementById('cancleNewProjectBtn');
-    cancleNewProjectBtn.addEventListener('click', domOps.removeNewProjectForm);
-
-    let confirmNewProjectBtn = document.getElementById('confirmNewProjectBtn');
-    confirmNewProjectBtn.addEventListener('click', () => {
-        const newProjectName = document.getElementById('newProjectNameField').value;
-        projects[newProjectName] = app.projectFactory(newProjectName);
-        domOps.createNewProjectTab(newProjectName, projects);
-        domOps.removeNewProjectForm();
-    });
-});
-
-domOps.displaySublists('test project', projects);
-
+let sublistTest = displayController.sublistControllerFactory(sublist1);
+sublistTest.createTaskControllers();
 
