@@ -109,7 +109,8 @@
     bottom: 0px;
     display: flex;
     flex-direction: row;
-    padding: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .sublist-div {
@@ -117,9 +118,12 @@
     flex-direction: column;
     gap: 20px;
     padding: 25px;
+    padding-right: 75px;
+    padding-left: 75px;
     width: 450px;
     align-items: center;
-    border: 2px solid black;
+    border-right: 2px solid black;
+    height: max-content;
 }
 
 .sublist-title {
@@ -131,7 +135,7 @@
 .task-container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 12px;
     width: 100%;
 }
 
@@ -156,4 +160,8 @@
     flex-direction: row;
     padding: 6px;
     gap: 3px;
+}
+
+.add-task-btn {
+    
 }

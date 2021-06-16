@@ -64,6 +64,7 @@ const displayController = (() => {
                     console.log(taskName);
                     deleteTaskController(taskName);
                     sublist.removeTask(taskName);
+                    console.log(sublist.getTasks());
                 });
             }
         }
@@ -101,11 +102,19 @@ const displayController = (() => {
     }
 
     const projectControllerFactory = (projectObj) => {
-        const projectParts = domOps.createNewProjectTab(); 
+        const projectParts = domOps.createNewProjectTab(projectObj); 
         let projectTabDiv = projectParts[0];
         let projectTabName = projectParts[1];
         let projectEditBtn = projectParts[2];
         let projectDeleteBtn = projectParts[3];
+        let sublistControllers = {};
+
+        const createSublistControllers = () => {
+            let sublists = projectObj.getSublists();
+            for (let key in sublists) {
+                sublistControllers[key] = sublistControllerFactory(sublists[key]);
+            }
+        }
 
 
     }
@@ -117,5 +126,7 @@ const displayController = (() => {
     }
     
 })();
+
+
 
 export default displayController
