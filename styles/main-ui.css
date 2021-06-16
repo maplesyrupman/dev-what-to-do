@@ -122,6 +122,12 @@
     border: 2px solid black;
 }
 
+.sublist-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    font-style: italic;
+}
+
 .task-container {
     display: flex;
     flex-direction: column;
@@ -136,4 +142,18 @@
     border: 2px solid black;
     border-radius: 15px;
     padding: 15px;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: 'Montserrat', sans-seri;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    padding: 6px;
+    gap: 3px;
 }

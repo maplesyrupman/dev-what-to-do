@@ -95,7 +95,7 @@ const domOps = (() => {
         taskEditBtn.innerHTML = '<i class="fas fa-pen"></i>';
         taskEditBtn.classList.add('task-edit-btn');
         const taskDeleteBtn = document.createElement('button');
-        taskEditBtn.value = taskName;
+        taskDeleteBtn.setAttribute('value', taskName);
         taskDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
         taskDeleteBtn.classList.add('task-delete-btn');
 
