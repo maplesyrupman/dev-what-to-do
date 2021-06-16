@@ -57,9 +57,9 @@ const displayController = (() => {
 
         const createTaskControllers = () => {
             let tasks = sublist.getTasks();
-            for (let task in tasks) {
-                taskControllers[task] = taskControllerFactory(tasks[task]);
-                taskControllers[task].getTaskDeleteBtn().addEventListener('click', (e, sublist) => {
+            for (let key in tasks) {
+                taskControllers[key] = taskControllerFactory(tasks[key]);
+                taskControllers[key].getTaskDeleteBtn().addEventListener('click', (e, sublist) => {
                     let taskName = e.target.value;
                     deleteTaskController(taskName);
                     sublist.removeTask(taskName);
@@ -80,8 +80,8 @@ const displayController = (() => {
         }
 
         const addTaskDivsToContainer = () => {
-            for (let taskDiv in taskDivs) {
-                taskContainer.appendChild(taskDivs[taskDiv]);
+            for (let key in taskControllers) {
+                taskContainer.appendChild(taskControllers[key].getTaskDiv());
             }
         }
 

@@ -71,8 +71,9 @@ const domOps = (() => {
         return [sublistDiv, sublistTitle, taskContainer, addTaskBtn];
     }
 
-    const createTask = (task) => {
-        taskName = task.getName();
+    const createTask = (taskObj) => {
+        let task = taskObj;
+        let taskName = task.getName();
         const taskDiv = document.createElement('div');
         taskDiv.classList.add('task-div');
         const taskCheckbox = document.createElement('input');

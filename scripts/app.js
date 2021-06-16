@@ -48,8 +48,8 @@ const app = (()=> {
             return tasks;
         }
     
-        const addTask = (taskName, taskObj) => {
-            tasks[taskName] = taskObj;
+        const addTask = (taskObj) => {
+            tasks[taskObj.getName()] = taskObj;
         }
     
         const removeTask = (taskName) => {

@@ -107,4 +107,33 @@
     left: 325px;
     right: 0px;
     bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+}
+
+.sublist-div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+    width: 450px;
+    align-items: center;
+    border: 2px solid black;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.task-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 15px;
 }

@@ -2,7 +2,7 @@ import app from './app.js';
 import domOps from './DOM.js';
 import displayController from './display-controller.js';
 
-
+//Test stuff between these long ass comments ###############################################
 let testProject = app.projectFactory('test project');
 let testProject2 = app.projectFactory('test project 2');
 let testProject3 = app.projectFactory('test project 3');
@@ -27,6 +27,13 @@ projects[testProject.getName()] = testProject;
 projects[testProject2.getName()] = testProject2;
 projects[testProject3.getName()] = testProject3; 
 
+
 let sublistTest = displayController.sublistControllerFactory(sublist1);
 sublistTest.createTaskControllers();
+sublistTest.addTaskDivsToContainer();
 
+const projectDisplay = document.getElementById('project-display');
+projectDisplay.appendChild(sublistTest.getSublistDiv());
+
+
+//Test stuff between these long ass comments ###############################################
