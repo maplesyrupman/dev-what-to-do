@@ -28,7 +28,8 @@ const domOps = (() => {
         return [newProjectFormDiv, newProjectNameField, createProjectBtn, cancleProjectBtn];
     }
 
-    const createNewProjectTab = (projectName) => {
+    const createNewProjectTab = (projectObj) => {
+        let projectName = projectObj.getName();
         const projectTabDiv = document.createElement('div');
             projectTabDiv.classList.add('project-tab-div');
             projectTabDiv.setAttribute('id', projectName);
@@ -52,11 +53,11 @@ const domOps = (() => {
             return [projectTabDiv, projectTabName, projectEditBtn, projectDeleteBtn];
     }
 
-    const createSublist = (sublist) => {
+    const createSublist = (sublistObj) => {
         const sublistDiv = document.createElement('div');
         sublistDiv.classList.add('sublist-div');
         const sublistTitle = document.createElement('h3');
-        sublistTitle.textContent = sublist.getName();
+        sublistTitle.textContent = sublistObj.getName();
         sublistTitle.classList.add('sublist-title');
         const taskContainer = document.createElement('div');
         taskContainer.classList.add('task-container');

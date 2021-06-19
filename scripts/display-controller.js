@@ -61,10 +61,8 @@ const displayController = (() => {
                 taskControllers[key] = taskControllerFactory(tasks[key]);
                 taskControllers[key].getTaskDeleteBtn().addEventListener('click', (e) => {
                     let taskName = e.currentTarget.value;
-                    console.log(taskName);
                     deleteTaskController(taskName);
                     sublist.removeTask(taskName);
-                    console.log(sublist.getTasks());
                 });
             }
         }
@@ -116,13 +114,70 @@ const displayController = (() => {
             }
         }
 
+        const addSublistDivsToProjectDisplay = () => {
+            for (let key in sublistControllers) {
+                projectDisplay.appendChild(sublistControllers[key].getSublistDiv());
+            }
+        }
+
+        const renderProject = () => {
+            createSublistControllers();
+            for (let key in sublistControllers) {
+                sublistControllers[key].createTaskControllers();
+                sublistControllers[key].addTaskDivsToContainer();
+            }
+            addSublistDivsToProjectDisplay();
+        }
+
+        const getProjectTabDiv = () => {
+            return projectTabDiv;
+        }
+
+        return {
+            createSublistControllers,
+            renderProject,
+            getProjectTabDiv,
+        }
 
     }
+
+    const projectNavController = (projectsObj) => {
+        let projects = projectsObj;
+        let projectControllers = {};
+        
+        const createProjectControllers = () => {
+            for (let key in projects) {
+                projectControllers[key] = projectControllerFactory(projects[key]);
+            }
+        }
+
+        const setProjects = (newProjectsObj) => {
+            projects = newProjectsObj;
+        }
+
+        const renderProjectNav = () => {
+            for (let key in projectControllers) {
+                projectNavTabs.appendChild(projectControllers[key].getProjectTabDiv());
+            }
+        }
+
+        const getProjectControllers = () => {
+            return projectControllers;
+        }
+
+        return {
+            setProjects, 
+            createProjectControllers,
+            getProjectControllers,
+            renderProjectNav,
+        }
+    };
 
     return {
         taskControllerFactory, 
         sublistControllerFactory, 
-        projectControllerFactory
+        projectControllerFactory,
+        projectNavController,
     }
     
 })();

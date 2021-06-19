@@ -34,17 +34,18 @@ projects[testProject2.getName()] = testProject2;
 projects[testProject3.getName()] = testProject3; 
 
 
-let sublistTest = displayController.sublistControllerFactory(sublist1);
-sublistTest.createTaskControllers();
-sublistTest.addTaskDivsToContainer();
 
-let sublistTest2 = displayController.sublistControllerFactory(sublist2);
-sublistTest2.createTaskControllers();
-sublistTest2.addTaskDivsToContainer();
+const projectNavController = displayController.projectNavController(projects);
+projectNavController.createProjectControllers();
+projectNavController.renderProjectNav();
 
-const projectDisplay = document.getElementById('project-display');
-projectDisplay.appendChild(sublistTest.getSublistDiv());
-projectDisplay.appendChild(sublistTest2.getSublistDiv());
+
+
+
+let project1 = projectNavController.getProjectControllers()['test project'];
+project1.renderProject();
+
+
 
 
 //Test stuff between these long ass comments ###############################################
