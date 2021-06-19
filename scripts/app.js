@@ -66,26 +66,18 @@ const app = (()=> {
     }
 
 
-    const taskFactory = (name, description, dueDate) => {
+    const taskFactory = (name, dueDate, owningSublist) => {
         let taskName = name;
-        let taskDescription = description;
         let taskDueDate = dueDate;
         let completed = false;
-    
+        const parentSublist = owningSublist;
+
         const getName = () => {
             return taskName;
         }
     
         const changeName = (newName) => {
             taskName = newName;
-        }
-    
-        const getDescription = () => {
-            return taskDescription;
-        }
-    
-        const changeDescription = (newDescription) => {
-            taskDescription = newDescription;
         }
     
         const getDueDate = () => {
@@ -105,8 +97,6 @@ const app = (()=> {
         return {
             getName, 
             changeName, 
-            getDescription, 
-            changeDescription, 
             getDueDate, 
             changeDueDate, 
             toggleCompleted

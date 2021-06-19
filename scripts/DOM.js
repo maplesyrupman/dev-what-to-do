@@ -28,6 +28,34 @@ const domOps = (() => {
         return [newProjectFormDiv, newProjectNameField, createProjectBtn, cancleProjectBtn];
     }
 
+    const createNewTaskForm = () => {
+        let newTaskFormDiv = document.createElement('div');
+        newTaskFormDiv.classList.add('task-div');
+        let newTaskForm = document.createElement('form');
+        let newTaskNameField = document.createElement('input');
+        newTaskNameField.setAttribute('type', 'text');
+        newTaskNameField.setAttribute('name', 'newTaskName');
+        newTaskNameField.setAttribute('placeholder', 'New Task');
+        let newTaskDueDateField = document.createElement('input');
+        newTaskDueDateField.setAttribute('type', 'date');
+        newTaskDueDateField.setAttribute('name', 'newTaskDueDate');
+        let buttonDiv = document.createElement('div');
+        let confirmTaskBtn = document.createElement('button');
+        confirmTaskBtn.innerHTML = '<i class="fas fa-check"></i>';
+        confirmTaskBtn.classList.add('create-btn');
+        let cancleTaskBtn = document.createElement('button');
+        cancleTaskBtn.innerHTML = '<i class="fas fa-times"></i>';
+        cancleTaskBtn.classList.add('cancle-btn');
+        buttonDiv.appendChild(confirmTaskBtn);
+        buttonDiv.appendChild(cancleTaskBtn);
+        newTaskForm.appendChild(newTaskNameField);
+        newTaskForm.appendChild(newTaskDueDateField);
+        newTaskFormDiv.appendChild(newTaskForm);
+        newTaskFormDiv.appendChild(buttonDiv);
+
+        return [newTaskFormDiv, newTaskNameField, newTaskDueDateField, confirmTaskBtn, cancleTaskBtn];
+    }
+
     const createNewProjectTab = (projectObj) => {
         let projectName = projectObj.getName();
         const projectTabDiv = document.createElement('div');
@@ -116,6 +144,7 @@ const domOps = (() => {
         createNewProjectTab,
         createSublist,
         createTask,
+        createNewTaskForm,
     }
 
 })();

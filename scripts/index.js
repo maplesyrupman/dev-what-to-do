@@ -10,12 +10,12 @@ let sublist1 = app.sublistFactory('sublist 1');
 let sublist2 = app.sublistFactory('sublist 2');
 let sublist3 = app.sublistFactory('sublist 3');
 
-let task1 = app.taskFactory('test', 'this is a test', 'today');
-let task2 = app.taskFactory('another test', 'this is another test', 'tomorrow');
+let task1 = app.taskFactory('test', 'today');
+let task2 = app.taskFactory('another test', 'tomorrow');
 
-let task3 = app.taskFactory('this test', 'blah blah blah', 'someday');
-let task4 = app.taskFactory('my test', 'a test task', 'yesterday');
-let task5 = app.taskFactory('great test', 'a great test task', 'oneday');
+let task3 = app.taskFactory('this test', 'someday');
+let task4 = app.taskFactory('my test', 'yesterday');
+let task5 = app.taskFactory('great test', 'oneday');
 
 sublist1.addTask(task1);
 sublist1.addTask(task2);
