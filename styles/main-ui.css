@@ -6,6 +6,7 @@
 
 * {
     box-sizing: border-box;
+    user-select: none;
 }
 
 .text {
@@ -92,7 +93,6 @@
 .project-tab-name {
     font-family: 'Pacifico', cursive;
     font-size: 1.65rem;
-    
 }
 
 .button-div {
