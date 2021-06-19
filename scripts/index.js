@@ -40,11 +40,8 @@ projectNavController.createProjectControllers();
 projectNavController.renderProjectNav();
 
 
-
-
-let project1 = projectNavController.getProjectControllers()['test project'];
-project1.renderProject();
-
+let projectDisplayController = displayController.projectDisplayController(testProject);
+projectDisplayController.renderProject();
 
 
 

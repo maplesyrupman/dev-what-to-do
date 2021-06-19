@@ -172,23 +172,8 @@ const displayController = (() => {
             })
         }
 
-        const getProjectControllers = () => {
-            return projectControllers;
-        }
-
-        const addSublistDivsToProjectDisplay = () => {
-            for (let key in sublistControllers) {
-                projectDisplay.appendChild(sublistControllers[key].getSublistDiv());
-            }
-        }
-
-        const renderProject = () => {
-            createSublistControllers();
-            for (let key in sublistControllers) {
-                sublistControllers[key].createTaskControllers();
-                sublistControllers[key].addTaskDivsToContainer();
-            }
-            addSublistDivsToProjectDisplay();
+        const getSublistControllers = () => {
+            return sublistControllers;
         }
 
         const getProjectTabDiv = () => {
@@ -197,8 +182,8 @@ const displayController = (() => {
 
         return {
             createSublistControllers,
-            renderProject,
             getProjectTabDiv,
+            getSublistControllers,
         }
 
     }
@@ -206,6 +191,28 @@ const displayController = (() => {
     const projectDisplayController = projectObj => {
         let projectToDisplay = projectControllerFactory(projectObj);
         projectToDisplay.createSublistControllers();
+
+        const addSublistDivsToProjectDisplay = (sublistControllers) => {
+
+            for (let key in sublistControllers) {
+                projectDisplay.appendChild(sublistControllers[key].getSublistDiv());
+            }
+        }
+
+        const renderProject = () => {
+            let sublistControllers = Object.values(projectToDisplay.getSublistControllers());
+            for (let value of sublistControllers) {
+                value.createTaskControllers();
+                value.addTaskDivsToContainer();
+            };
+            addSublistDivsToProjectDisplay(sublistControllers);
+        }
+
+        return {
+            renderProject,
+        }
+
+
     }
 
     const projectNavController = (projectsObj) => {
@@ -244,6 +251,7 @@ const displayController = (() => {
         taskControllerFactory, 
         sublistControllerFactory, 
         projectControllerFactory,
+        projectDisplayController,
         projectNavController,
     }
     
