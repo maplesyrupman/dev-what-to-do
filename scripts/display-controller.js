@@ -202,10 +202,19 @@ const displayController = (() => {
         const renderProject = () => {
             let sublistControllers = Object.values(projectToDisplay.getSublistControllers());
             for (let value of sublistControllers) {
+                clearProjectDisplay();
                 value.createTaskControllers();
                 value.addTaskDivsToContainer();
             };
             addSublistDivsToProjectDisplay(sublistControllers);
+            const addSublistBtn = domOps.createAddSublistBtn();
+            projectDisplay.appendChild(addSublistBtn);
+        }
+
+        const clearProjectDisplay = () => {
+            while (projectDisplay.hasChildNodes()) {
+                projectDisplay.lastChild.remove();
+            }
         }
 
         return {

@@ -99,6 +99,13 @@ const domOps = (() => {
         
         return [sublistDiv, sublistTitle, taskContainer, addTaskBtn];
     }
+    const createAddSublistBtn = () => {
+        const addSublistBtn = document.createElement('div');
+        addSublistBtn.innerHTML = '<i class="fas fa-plus fa-2x"></i>';
+        addSublistBtn.classList.add('add-sublist-btn');
+
+        return addSublistBtn;
+    }
 
     const createTask = (taskObj) => {
         let task = taskObj;
@@ -143,6 +150,7 @@ const domOps = (() => {
         createNewProjectForm,
         createNewProjectTab,
         createSublist,
+        createAddSublistBtn,
         createTask,
         createNewTaskForm,
     }
