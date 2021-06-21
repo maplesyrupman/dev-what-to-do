@@ -99,6 +99,17 @@ const domOps = (() => {
         
         return [sublistDiv, sublistTitle, taskContainer, addTaskBtn];
     }
+
+    const createAddSublistBtnContainer = () => {
+        const addSublistBtnContianer = document.createElement('div');
+        addSublistBtnContianer.classList.add('sublist-div');
+        const addSublistBtn = createAddSublistBtn();
+        addSublistBtnContianer.appendChild(addSublistBtn);
+
+
+        return [addSublistBtnContianer, addSublistBtn];
+    }
+
     const createAddSublistBtn = () => {
         const addSublistBtn = document.createElement('div');
         addSublistBtn.innerHTML = '<i class="fas fa-plus fa-2x"></i>';
@@ -150,7 +161,7 @@ const domOps = (() => {
         createNewProjectForm,
         createNewProjectTab,
         createSublist,
-        createAddSublistBtn,
+        createAddSublistBtnContainer,
         createTask,
         createNewTaskForm,
     }

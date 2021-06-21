@@ -9,6 +9,7 @@ let testProject3 = app.projectFactory('test project 3');
 let sublist1 = app.sublistFactory('sublist 1');
 let sublist2 = app.sublistFactory('sublist 2');
 let sublist3 = app.sublistFactory('sublist 3');
+let sublist4 = app.sublistFactory('sublist 4');
 
 let task1 = app.taskFactory('test', 'today');
 let task2 = app.taskFactory('another test', 'tomorrow');
@@ -26,6 +27,7 @@ sublist2.addTask(task5);
 testProject.addSublist(sublist1.getName(), sublist1);
 testProject.addSublist(sublist2.getName(), sublist2);
 testProject.addSublist(sublist3.getName(), sublist3);
+testProject.addSublist(sublist4.getName(), sublist4);
 
 
 let projects = {}

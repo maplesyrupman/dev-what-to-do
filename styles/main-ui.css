@@ -104,6 +104,7 @@
 #project-display {
     position: absolute;
     width: 85%;
+    height: auto;
     top: 150px;
     right: 0px;
     bottom: 0px;
@@ -111,7 +112,7 @@
     flex-direction: row;
     padding-top: 50px;
     padding-bottom: 50px;
-    overflow-x: hidden;
+    overflow-x: scroll;
 }
 
 .sublist-div {
@@ -124,7 +125,7 @@
     width: 450px;
     min-width: 450px;
     align-items: center;
-    border-right: 2px solid black;
+    border-right: 1px solid black;
     height: max-content;
 }
 
@@ -134,10 +135,20 @@
     font-style: italic;
 }
 
-.add-sublist-btn {
-    width: 300px;
+.add-sublist-btn-container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.add-sublist-btn {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: #49b7f4;
 }
 
 .task-container {
@@ -171,5 +182,11 @@
 }
 
 .add-task-btn {
-    
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 3px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: #49b7f4;
 }

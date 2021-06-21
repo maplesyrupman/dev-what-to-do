@@ -207,8 +207,8 @@ const displayController = (() => {
                 value.addTaskDivsToContainer();
             };
             addSublistDivsToProjectDisplay(sublistControllers);
-            const addSublistBtn = domOps.createAddSublistBtn();
-            projectDisplay.appendChild(addSublistBtn);
+            const addSublistBtnContainer = domOps.createAddSublistBtnContainer();
+            projectDisplay.appendChild(addSublistBtnContainer[0]);
         }
 
         const clearProjectDisplay = () => {
