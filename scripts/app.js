@@ -15,7 +15,7 @@ const app = (()=> {
             sublists[sublistName] = sublistObj;
         }
 
-        const removeSublist = (subListName) => {
+        const removeSublist = (sublistName) => {
             delete sublists[sublistName];
         }
 
@@ -32,8 +32,9 @@ const app = (()=> {
         }
     };
 
-    const sublistFactory = (name) => {
+    const sublistFactory = (name, parentProject) => {
         let sublistName = name;
+        const parent = parentProject;
         let tasks = {};
 
         const getName = () => {
@@ -56,21 +57,26 @@ const app = (()=> {
             delete tasks[taskName];
         }
 
+        const getParentName = () => {
+            return parent;
+        }
+
         return {
             getName, 
             changeName,
             getTasks, 
             addTask, 
-            removeTask
+            removeTask,
+            getParentName,
         }
     }
 
 
-    const taskFactory = (name, dueDate, owningSublist) => {
+    const taskFactory = (name, dueDate, parentSublist) => {
         let taskName = name;
         let taskDueDate = dueDate;
         let completed = false;
-        const parentSublist = owningSublist;
+        const parent = parentSublist;
 
         const getName = () => {
             return taskName;
@@ -93,13 +99,18 @@ const app = (()=> {
             true :
             false;
         }
+
+        const getParentName = () => {
+            return parent;
+        }
     
         return {
             getName, 
             changeName, 
             getDueDate, 
             changeDueDate, 
-            toggleCompleted
+            toggleCompleted,
+            getParentName,
         }
     };
 
