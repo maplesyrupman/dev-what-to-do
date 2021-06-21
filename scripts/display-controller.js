@@ -35,15 +35,16 @@ const displayController = (() => {
         }
 
         return {
-            updateTitle, 
-            updateDueDate, 
-            getTaskEditBtn, 
-            getTaskDeleteBtn, 
+            updateTitle,
+            updateDueDate,
+            getTaskEditBtn,
+            getTaskDeleteBtn,
             getTaskDiv
         }
     }
 
     const sublistControllerFactory = (sublistObj) => {
+
         let sublist = sublistObj;
         const sublistParts = domOps.createSublist(sublist);
         let sublistDiv = sublistParts[0];
@@ -67,8 +68,8 @@ const displayController = (() => {
             taskControllers[taskObj.getName()] = taskControllerFactory(taskObj);
             taskControllers[taskObj.getName()].getTaskDeleteBtn().addEventListener('click', e => {
                 let taskName = e.currentTarget.value;
-                    deleteTaskController(taskName);
-                    sublist.removeTask(taskName);
+                deleteTaskController(taskName);
+                sublist.removeTask(taskName);
             })
         }
 
@@ -108,10 +109,10 @@ const displayController = (() => {
         }
 
         return {
-            updateTitle, 
+            updateTitle,
             addTaskController,
-            createTaskControllers, 
-            deleteTaskController, 
+            createTaskControllers,
+            deleteTaskController,
             clearTaskContainer,
             addTaskDivsToContainer,
             getSublistDiv,
@@ -122,7 +123,7 @@ const displayController = (() => {
     }
 
     const projectControllerFactory = (projectObj) => {
-        const projectParts = domOps.createNewProjectTab(projectObj); 
+        const projectParts = domOps.createNewProjectTab(projectObj);
         let projectTabDiv = projectParts[0];
         let projectTabName = projectParts[1];
         let projectEditBtn = projectParts[2];
@@ -140,17 +141,17 @@ const displayController = (() => {
         }
 
         const activateAddTaskBtn = (currentSublistController) => {
-           currentSublistController.getAddTaskBtn().addEventListener('click', e => {
-               if (newTaskFormIsDisplayed) {
-                   alert('Please finish creating the task you are currently working on before starting another');
-                   return;
-               }
-               newTaskFormIsDisplayed = true;
-               let newTaskFormParts = domOps.createNewTaskForm();
-               activateCancleTaskBtn(currentSublistController, newTaskFormParts[4]);
-               activateConfirmTaskBtn(currentSublistController, newTaskFormParts);
-               currentSublistController.getTaskContainer().appendChild(newTaskFormParts[0]);
-           })
+            currentSublistController.getAddTaskBtn().addEventListener('click', e => {
+                if (newTaskFormIsDisplayed) {
+                    alert('Please finish creating the task you are currently working on before starting another');
+                    return;
+                }
+                newTaskFormIsDisplayed = true;
+                let newTaskFormParts = domOps.createNewTaskForm();
+                activateCancleTaskBtn(currentSublistController, newTaskFormParts[4]);
+                activateConfirmTaskBtn(currentSublistController, newTaskFormParts);
+                currentSublistController.getTaskContainer().appendChild(newTaskFormParts[0]);
+            })
         }
 
         const activateConfirmTaskBtn = (currentSublistController, newTaskFormParts) => {
@@ -161,11 +162,11 @@ const displayController = (() => {
                 currentSublistController.clearTaskContainer();
                 currentSublistController.addTaskDivsToContainer();
                 newTaskFormIsDisplayed = false;
-                
+
             })
         }
 
-        const activateCancleTaskBtn = (currentSublistController,cancleTaskBtn) => {
+        const activateCancleTaskBtn = (currentSublistController, cancleTaskBtn) => {
             cancleTaskBtn.addEventListener('click', () => {
                 currentSublistController.getTaskContainer().lastChild.remove();
                 newTaskFormIsDisplayed = false;
@@ -189,6 +190,7 @@ const displayController = (() => {
     }
 
     const projectDisplayController = projectObj => {
+        const currentProjectName = projectObj.getName();
         let projectToDisplay = projectControllerFactory(projectObj);
         projectToDisplay.createSublistControllers();
 
@@ -207,7 +209,7 @@ const displayController = (() => {
                 value.addTaskDivsToContainer();
             };
             addSublistDivsToProjectDisplay(sublistControllers);
-            const addSublistBtnContainer = domOps.createAddSublistBtnContainer();
+            const addSublistBtnContainer = domOps.createAddSublistBtnContainer(currentProjectName);
             projectDisplay.appendChild(addSublistBtnContainer[0]);
         }
 
@@ -227,7 +229,7 @@ const displayController = (() => {
     const projectNavController = (projectsObj) => {
         let projects = projectsObj;
         let projectControllers = {};
-        
+
         const createProjectControllers = () => {
             for (let key in projects) {
                 projectControllers[key] = projectControllerFactory(projects[key]);
@@ -249,7 +251,7 @@ const displayController = (() => {
         }
 
         return {
-            setProjects, 
+            setProjects,
             createProjectControllers,
             getProjectControllers,
             renderProjectNav,
@@ -257,13 +259,13 @@ const displayController = (() => {
     };
 
     return {
-        taskControllerFactory, 
-        sublistControllerFactory, 
+        taskControllerFactory,
+        sublistControllerFactory,
         projectControllerFactory,
         projectDisplayController,
         projectNavController,
     }
-    
+
 })();
 
 

@@ -1,8 +1,12 @@
 const storageController = (() => {
     const projects = {};
 
-    const setProjects = (projectsObj) => {
-        projects = projectsObj;
+    const addTask = (taskObj, parentSublistName, grandparentProjectName) => {
+        projects[grandParentProjectName][parentSublistName].addTask(taskObj);
+    }
+
+    const addSublist = (sublistObj, parentProjectName) => {
+        projects[parentProjectName].addSublist(sublistObj);
     }
 
     const returnProjects = () => {

@@ -6,17 +6,17 @@ let testProject = app.projectFactory('test project');
 let testProject2 = app.projectFactory('test project 2');
 let testProject3 = app.projectFactory('test project 3');
 
-let sublist1 = app.sublistFactory('sublist 1');
-let sublist2 = app.sublistFactory('sublist 2');
-let sublist3 = app.sublistFactory('sublist 3');
-let sublist4 = app.sublistFactory('sublist 4');
+let sublist1 = app.sublistFactory('sublist 1', 'test project');
+let sublist2 = app.sublistFactory('sublist 2', 'test project');
+let sublist3 = app.sublistFactory('sublist 3', 'test project');
+let sublist4 = app.sublistFactory('sublist 4', 'test project');
 
-let task1 = app.taskFactory('test', 'today');
-let task2 = app.taskFactory('another test', 'tomorrow');
+let task1 = app.taskFactory('test', 'today', 'sublist 1', 'test project');
+let task2 = app.taskFactory('another test', 'tomorrow', 'sublist 1', 'test project');
 
-let task3 = app.taskFactory('this test', 'someday');
-let task4 = app.taskFactory('my test', 'yesterday');
-let task5 = app.taskFactory('great test', 'oneday');
+let task3 = app.taskFactory('this test', 'someday', 'sublist 2', 'test project');
+let task4 = app.taskFactory('my test', 'yesterday', 'sublist 2', 'test project');
+let task5 = app.taskFactory('great test', 'oneday', 'sublist 2', 'test project');
 
 sublist1.addTask(task1);
 sublist1.addTask(task2);
@@ -45,6 +45,6 @@ projectNavController.renderProjectNav();
 let projectDisplayController = displayController.projectDisplayController(testProject);
 projectDisplayController.renderProject();
 
-
+console.log(task1.getGrandparentName());
 
 //Test stuff between these long ass comments ###############################################

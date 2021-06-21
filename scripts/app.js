@@ -72,12 +72,12 @@ const app = (()=> {
     }
 
 
-    const taskFactory = (name, dueDate, parentSublist, grandParentProject) => {
+    const taskFactory = (name, dueDate, parentSublist, grandparentProject) => {
         let taskName = name;
         let taskDueDate = dueDate;
         let completed = false;
         const parent = parentSublist;
-        const grandParent = grandParentProject;
+        const grandparent = grandparentProject;
 
         const getName = () => {
             return taskName;
@@ -105,8 +105,8 @@ const app = (()=> {
             return parent;
         }
 
-        const getGrandParentName = () => {
-            return grandParent;
+        const getGrandparentName = () => {
+            return grandparent;
         }
     
         return {
@@ -116,7 +116,7 @@ const app = (()=> {
             changeDueDate, 
             toggleCompleted,
             getParentName,
-            getGrandParentName, 
+            getGrandparentName, 
         }
     };
 
