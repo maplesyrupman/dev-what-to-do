@@ -2,18 +2,34 @@ const storageController = (() => {
     const projects = {};
 
     const addTask = (taskObj, parentSublistName, grandparentProjectName) => {
-        projects[grandParentProjectName][parentSublistName].addTask(taskObj);
+        projects[grandparentProjectName][parentSublistName].addTask(taskObj);
+    }
+
+    const deleteTask = (taskName, parentSublistName, grandparentProjectName) => {
+        delete projects[grandparentProjectName][parentSublistName][taskName];
     }
 
     const addSublist = (sublistObj, parentProjectName) => {
         projects[parentProjectName].addSublist(sublistObj);
     }
 
-    const returnProjects = () => {
+    const deleteSublist = (sublistName, parentProjectName) => {
+        delete projects[parentProjectName][sublistName];
+    }
+
+    const addProject = (projectObj, projectName) => {
+        projects[projectName] = projectObj;
+    }
+
+    const deleteProject = (projectName) => {
+        delete projects[projectName];
+    }
+
+    const getProjects = () => {
         return projects;
     }
 
-    const saveProjects = () => {
+    const saveProjectsToLocal = () => {
 
     }
 
@@ -21,8 +37,17 @@ const storageController = (() => {
 
     }
 
-    const addTask = (parentProject, parentSublist, taskObj) => {
-        projects[parentProject.getName()][parentSublist.getName()].addTask(taskObj);
-        saveProjects();
+    return {
+        addTask, 
+        deleteTask,
+        addSublist,
+        deleteSublist,
+        addProject, 
+        deleteProject,
+        getProjects,
+        saveProjectsToLocal,
+        fetchProjectsFromLocal,
     }
 })();
+
+export default storageController

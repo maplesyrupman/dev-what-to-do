@@ -1,5 +1,6 @@
 import domOps from './DOM.js'
 import app from './app.js'
+import storageController from './storage.js'
 
 const displayController = (() => {
     const projectNavTabs = document.getElementById('project-nav-tabs');
