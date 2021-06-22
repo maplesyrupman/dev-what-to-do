@@ -144,7 +144,6 @@ const domOps = (() => {
         newSublistFormDiv.appendChild(buttonDiv);
 
         return [newSublistFormDiv, newSublistNameField, createSublistBtn, cancleSublistBtn];
-
     }
 
     const createTask = (taskObj) => {

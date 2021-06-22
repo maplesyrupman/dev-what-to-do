@@ -1,4 +1,4 @@
-const app = (()=> {
+const app = (() => {
     const projectFactory = (name) => {
         let projectName = name;
         let sublists = {};
@@ -7,11 +7,11 @@ const app = (()=> {
             'name': projectName,
             'simpleSublists': simpleSublists,
         };
-    
+
         const changeName = (newName) => {
             projectName = newName;
         }
-    
+
         const getName = () => {
             return projectName;
         }
@@ -40,13 +40,13 @@ const app = (()=> {
         const getSimple = () => {
             return simpleProjectObj;
         }
-    
+
         return {
             changeName,
             getName,
-            addSublist, 
-            removeSublist, 
-            getSublists, 
+            addSublist,
+            removeSublist,
+            getSublists,
             getSimple
         }
     };
@@ -55,12 +55,12 @@ const app = (()=> {
         let sublistName = name;
         const parent = parentProject;
         let tasks = {};
-        let simpleTasks = {} 
+        let simpleTasks = {}
         let simpleSublistObj = {
             'name': sublistName,
             'parent': parent,
             'simpleTasks': simpleTasks,
-        } 
+        }
 
         const getName = () => {
             return sublistName;
@@ -73,12 +73,12 @@ const app = (()=> {
         const getTasks = () => {
             return tasks;
         }
-    
+
         const addTask = (taskObj) => {
             tasks[taskObj.getName()] = taskObj;
             buildSimpleTasks();
         }
-    
+
         const removeTask = (taskName) => {
             delete tasks[taskName];
             buildSimpleTasks();
@@ -100,10 +100,10 @@ const app = (()=> {
         }
 
         return {
-            getName, 
+            getName,
             changeName,
-            getTasks, 
-            addTask, 
+            getTasks,
+            addTask,
             removeTask,
             getParentName,
             getSimple,
@@ -117,24 +117,24 @@ const app = (()=> {
         const parent = parentSublist;
         const grandparent = grandparentProject;
         let simpleTaskObj = {
-            'name': taskName, 
-            'dueDate': taskDueDate, 
-            'parent': parent, 
+            'name': taskName,
+            'dueDate': taskDueDate,
+            'parent': parent,
             'grandparent': grandparent
         };
 
         const getName = () => {
             return taskName;
         }
-    
+
         const changeName = (newName) => {
             taskName = newName;
         }
-    
+
         const getDueDate = () => {
             return taskDueDate;
         }
-    
+
         const changeDueDate = (newDueDate) => {
             taskDueDate = newDueDate;
         }
@@ -150,14 +150,14 @@ const app = (()=> {
         const getSimple = () => {
             return simpleTaskObj;
         }
-    
+
         return {
-            getName, 
-            changeName, 
-            getDueDate, 
-            changeDueDate, 
+            getName,
+            changeName,
+            getDueDate,
+            changeDueDate,
             getParentName,
-            getGrandparentName, 
+            getGrandparentName,
             getSimple
         }
     };

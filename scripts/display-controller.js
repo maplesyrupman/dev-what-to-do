@@ -168,7 +168,7 @@ const displayController = (() => {
                 newTaskFormIsDisplayed = true;
                 let newTaskFormParts = domOps.createNewTaskForm();
                 activateCancleTaskBtn(currentSublistController, newTaskFormParts[4]);
-                activateConfirmTaskBtn(currentSublistController, newTaskFormParts[3]);
+                activateConfirmTaskBtn(currentSublistController, newTaskFormParts[3], newTaskFormParts);
                 currentSublistController.getTaskContainer().appendChild(newTaskFormParts[0]);
             })
         }
@@ -179,8 +179,8 @@ const displayController = (() => {
             })
         }
 
-        const activateConfirmTaskBtn = (currentSublistController, newTaskFormParts) => {
-            newTaskFormParts.addEventListener('click', () => {
+        const activateConfirmTaskBtn = (currentSublistController, createTaskBtn, newTaskFormParts) => {
+            createTaskBtn.addEventListener('click', () => {
                 let newTask = app.taskFactory(newTaskFormParts[1].value, newTaskFormParts[2].value);
                 currentSublistController.addTask(newTask);
                 currentSublistController.addTaskController(newTask);
