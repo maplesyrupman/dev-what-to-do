@@ -116,10 +116,35 @@ const domOps = (() => {
     const createAddSublistBtn = (parentProjectName) => {
         const addSublistBtn = document.createElement('div');
         addSublistBtn.innerHTML = '<i class="fas fa-plus fa-2x"></i>';
+        addSublistBtn.setAttribute('id', 'addSublistBtn');
         addSublistBtn.classList.add('add-sublist-btn');
         addSublistBtn.dataset.parentProjectName = parentProjectName;
 
         return addSublistBtn;
+    }
+
+    const createNewSublistForm = () => {
+        let newSublistFormDiv = document.createElement('div');
+        newSublistFormDiv.classList.add('new-sublist-form-div');
+        let newSublistForm = document.createElement('form');
+        let newSublistNameField = document.createElement('input');
+        newSublistNameField.setAttribute('type', 'text');
+        newSublistNameField.setAttribute('placeholder', 'New Sublist');
+        let buttonDiv = document.createElement('div');
+        let createSublistBtn = document.createElement('button');
+        createSublistBtn.innerHTML = '<i class="fas fa-check"></i>';
+        createSublistBtn.classList.add('create-btn');
+        let cancleSublistBtn = document.createElement('button');
+        cancleSublistBtn.innerHTML = '<i class="fas fa-times"></i>';
+        cancleSublistBtn.classList.add('cancle-btn');
+        buttonDiv.appendChild(createSublistBtn);
+        buttonDiv.appendChild(cancleSublistBtn);
+        newSublistForm.appendChild(newSublistNameField);
+        newSublistFormDiv.appendChild(newSublistForm);
+        newSublistFormDiv.appendChild(buttonDiv);
+
+        return [newSublistFormDiv, newSublistNameField, createSublistBtn, cancleSublistBtn];
+
     }
 
     const createTask = (taskObj) => {
@@ -166,6 +191,7 @@ const domOps = (() => {
     return {
         createNewProjectForm,
         createNewProjectTab,
+        createNewSublistForm,
         createSublist,
         createAddSublistBtnContainer,
         createTask,

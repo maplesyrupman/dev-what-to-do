@@ -45,6 +45,7 @@ projectNavController.renderProjectNav();
 let projectDisplayController = displayController.projectDisplayController(testProject);
 projectDisplayController.renderProject();
 
-console.log(task1.getGrandparentName());
+let testProjectController = projectNavController.getProjectControllers()['test project'];
+console.log(testProjectController.activateAddSublistBtn());
 
 //Test stuff between these long ass comments ###############################################

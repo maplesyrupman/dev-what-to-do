@@ -131,6 +131,7 @@ const displayController = (() => {
         let projectDeleteBtn = projectParts[3];
         let sublistControllers = {};
         let newTaskFormIsDisplayed = false;
+        let newSublistFormIsDisplayed = false;
 
         const createSublistControllers = () => {
             let sublists = projectObj.getSublists();
@@ -139,6 +140,16 @@ const displayController = (() => {
                 let currentSublistController = sublistControllers[key];
                 activateAddTaskBtn(currentSublistController);
             }
+        }
+
+        const activateAddSublistBtn = () => {
+            const addSublistBtn = document.getElementById('addSublistBtn');
+            if (newSublistFormIsDisplayed) {
+                alert('Please finish creating the task you are currently working on before starting another');
+                return;
+            }
+            newSublistFormIsDisplayed = true;
+            let newTaskFormParts = domOps.createNewSublistForm();
         }
 
         const activateAddTaskBtn = (currentSublistController) => {
@@ -186,6 +197,7 @@ const displayController = (() => {
             createSublistControllers,
             getProjectTabDiv,
             getSublistControllers,
+            activateAddSublistBtn,
         }
 
     }

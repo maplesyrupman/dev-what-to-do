@@ -30,11 +30,16 @@ const storageController = (() => {
     }
 
     const saveProjectsToLocal = () => {
-
+        const projects_serialized = JSON.stringify(projects);
+        localStorage.setItem('projects', projects_serialized);
     }
 
-    const fetchProjectsFromLocal = () => {
-
+    const getProjectsFromLocal = () => {
+        const retrievedProjects = localStorage.getItem('projects');
+        if (retrievedProjects == null) {
+            return {};
+        }
+        return JSON.parse(retrievedProjects);
     }
 
     return {
@@ -46,7 +51,7 @@ const storageController = (() => {
         deleteProject,
         getProjects,
         saveProjectsToLocal,
-        fetchProjectsFromLocal,
+        getProjectsFromLocal,
     }
 })();
 
