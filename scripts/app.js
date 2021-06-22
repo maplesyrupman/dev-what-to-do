@@ -2,6 +2,11 @@ const app = (()=> {
     const projectFactory = (name) => {
         let projectName = name;
         let sublists = {};
+        let simpleSublists = {};
+        let simpleProjectObj = {
+            'name': projectName,
+            'simpleSublists': simpleSublists,
+        };
     
         const changeName = (newName) => {
             projectName = newName;
@@ -13,14 +18,27 @@ const app = (()=> {
 
         const addSublist = (sublistName, sublistObj) => {
             sublists[sublistName] = sublistObj;
+            buildSimpleSublists();
         }
 
         const removeSublist = (sublistName) => {
             delete sublists[sublistName];
+            buildSimpleSublists();
         }
 
         const getSublists = () => {
             return sublists;
+        }
+
+        const buildSimpleSublists = () => {
+            let sublistValues = Object.values(sublists);
+            for (let value of sublistValues) {
+                simpleSublists[value.getName()] = value.getSimple();
+            }
+        }
+
+        const getSimple = () => {
+            return simpleProjectObj;
         }
     
         return {
@@ -29,6 +47,7 @@ const app = (()=> {
             addSublist, 
             removeSublist, 
             getSublists, 
+            getSimple
         }
     };
 
@@ -36,6 +55,12 @@ const app = (()=> {
         let sublistName = name;
         const parent = parentProject;
         let tasks = {};
+        let simpleTasks = {} 
+        let simpleSublistObj = {
+            'name': sublistName,
+            'parent': parent,
+            'simpleTasks': simpleTasks,
+        } 
 
         const getName = () => {
             return sublistName;
@@ -51,14 +76,27 @@ const app = (()=> {
     
         const addTask = (taskObj) => {
             tasks[taskObj.getName()] = taskObj;
+            buildSimpleTasks();
         }
     
         const removeTask = (taskName) => {
             delete tasks[taskName];
+            buildSimpleTasks();
         }
 
         const getParentName = () => {
             return parent;
+        }
+
+        const buildSimpleTasks = () => {
+            let taskValues = Object.values(tasks);
+            for (let value of taskValues) {
+                simpleTasks[value.getName()] = value.getSimple();
+            }
+        }
+
+        const getSimple = () => {
+            return simpleSublistObj;
         }
 
         return {
@@ -68,6 +106,7 @@ const app = (()=> {
             addTask, 
             removeTask,
             getParentName,
+            getSimple,
         }
     }
 
@@ -75,9 +114,14 @@ const app = (()=> {
     const taskFactory = (name, dueDate, parentSublist, grandparentProject) => {
         let taskName = name;
         let taskDueDate = dueDate;
-        let completed = false;
         const parent = parentSublist;
         const grandparent = grandparentProject;
+        let simpleTaskObj = {
+            'name': taskName, 
+            'dueDate': taskDueDate, 
+            'parent': parent, 
+            'grandparent': grandparent
+        };
 
         const getName = () => {
             return taskName;
@@ -94,12 +138,6 @@ const app = (()=> {
         const changeDueDate = (newDueDate) => {
             taskDueDate = newDueDate;
         }
-    
-        const toggleCompleted = () => {
-            completed = (completed == false) ? 
-            true :
-            false;
-        }
 
         const getParentName = () => {
             return parent;
@@ -108,15 +146,19 @@ const app = (()=> {
         const getGrandparentName = () => {
             return grandparent;
         }
+
+        const getSimple = () => {
+            return simpleTaskObj;
+        }
     
         return {
             getName, 
             changeName, 
             getDueDate, 
             changeDueDate, 
-            toggleCompleted,
             getParentName,
             getGrandparentName, 
+            getSimple
         }
     };
 

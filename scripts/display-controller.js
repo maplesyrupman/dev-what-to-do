@@ -1,10 +1,11 @@
 import domOps from './DOM.js'
 import app from './app.js'
-import storageController from './storage.js'
+import storage from './storage.js'
 
 const displayController = (() => {
     const projectNavTabs = document.getElementById('project-nav-tabs');
     const projectDisplay = document.getElementById('project-display');
+
     let newProjectFormIsDisplayed = false;
 
     const taskControllerFactory = (taskObj) => {
@@ -144,12 +145,18 @@ const displayController = (() => {
 
         const activateAddSublistBtn = () => {
             const addSublistBtn = document.getElementById('addSublistBtn');
-            if (newSublistFormIsDisplayed) {
-                alert('Please finish creating the task you are currently working on before starting another');
-                return;
-            }
-            newSublistFormIsDisplayed = true;
-            let newTaskFormParts = domOps.createNewSublistForm();
+            addSublistBtn.addEventListener('click', () => {
+                if (newSublistFormIsDisplayed) {
+                    alert('Please finish creating the task you are currently working on before starting another');
+                    return;
+                }
+                newSublistFormIsDisplayed = true;
+                let newSublistFormParts = domOps.createNewSublistForm();
+                const addSublistBtnContainer = addSublistBtn.parentNode;
+                addSublistBtnContainer.appendChild(newSublistFormParts[0]);
+                addSublistBtn.classList.add('hide');
+            });
+
         }
 
         const activateAddTaskBtn = (currentSublistController) => {
@@ -161,20 +168,25 @@ const displayController = (() => {
                 newTaskFormIsDisplayed = true;
                 let newTaskFormParts = domOps.createNewTaskForm();
                 activateCancleTaskBtn(currentSublistController, newTaskFormParts[4]);
-                activateConfirmTaskBtn(currentSublistController, newTaskFormParts);
+                activateConfirmTaskBtn(currentSublistController, newTaskFormParts[3]);
                 currentSublistController.getTaskContainer().appendChild(newTaskFormParts[0]);
             })
         }
 
+        const activateConfirmSublistBtn = (confirmSublistBtn) => {
+            confirmSublistBtn.addEventListener('click', () => {
+                projectObj.addSublist(newSublistFormParts[1].value);
+            })
+        }
+
         const activateConfirmTaskBtn = (currentSublistController, newTaskFormParts) => {
-            newTaskFormParts[3].addEventListener('click', () => {
+            newTaskFormParts.addEventListener('click', () => {
                 let newTask = app.taskFactory(newTaskFormParts[1].value, newTaskFormParts[2].value);
                 currentSublistController.addTask(newTask);
                 currentSublistController.addTaskController(newTask);
                 currentSublistController.clearTaskContainer();
                 currentSublistController.addTaskDivsToContainer();
                 newTaskFormIsDisplayed = false;
-
             })
         }
 
@@ -208,7 +220,6 @@ const displayController = (() => {
         projectToDisplay.createSublistControllers();
 
         const addSublistDivsToProjectDisplay = (sublistControllers) => {
-
             for (let key in sublistControllers) {
                 projectDisplay.appendChild(sublistControllers[key].getSublistDiv());
             }

@@ -149,7 +149,7 @@
     border: 2px solid black;
     border-radius: 15px;
     background-color: #49b7f4;
-    margin-top: 150px;
+    /* margin-top: 150px; */
 }
 
 .task-container {
@@ -190,4 +190,8 @@
     border: 2px solid black;
     border-radius: 15px;
     background-color: #49b7f4;
+}
+
+.hide {
+    display: none;
 }

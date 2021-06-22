@@ -1,7 +1,8 @@
 import app from './app.js';
 import displayController from './display-controller.js';
+import storage from './storage.js';
 
-//Test stuff between these long ass comments ###############################################
+
 let testProject = app.projectFactory('test project');
 let testProject2 = app.projectFactory('test project 2');
 let testProject3 = app.projectFactory('test project 3');
@@ -30,6 +31,8 @@ testProject.addSublist(sublist3.getName(), sublist3);
 testProject.addSublist(sublist4.getName(), sublist4);
 
 
+
+
 let projects = {}
 projects[testProject.getName()] = testProject;
 projects[testProject2.getName()] = testProject2;
@@ -46,6 +49,12 @@ let projectDisplayController = displayController.projectDisplayController(testPr
 projectDisplayController.renderProject();
 
 let testProjectController = projectNavController.getProjectControllers()['test project'];
-console.log(testProjectController.activateAddSublistBtn());
 
-//Test stuff between these long ass comments ###############################################
+
+
+
+
+storage.addProject(testProject, testProject.getName());
+console.log(localStorage);
+storage.getProjectsFromLocal();
+console.log(storage.getProjects());
