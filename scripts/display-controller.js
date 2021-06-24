@@ -6,8 +6,6 @@ const displayController = (() => {
     const projectNavTabs = document.getElementById('project-nav-tabs');
     const projectDisplay = document.getElementById('project-display');
 
-    let newProjectFormIsDisplayed = false;
-
     const taskControllerFactory = (taskObj) => {
         const taskParts = domOps.createTask(taskObj);
         let taskDiv = taskParts[0];
@@ -15,14 +13,6 @@ const displayController = (() => {
         let taskDueDate = taskParts[2];
         let taskEditBtn = taskParts[3];
         let taskDeleteBtn = taskParts[4];
-
-        const updateTitle = (newTitle) => {
-            taskTitle.textContent = newTitle;
-        }
-
-        const updateDueDate = (newDueDate) => {
-            taskDueDate = newDueDate;
-        }
 
         const getTaskEditBtn = () => {
             return taskEditBtn;
@@ -37,8 +27,6 @@ const displayController = (() => {
         }
 
         return {
-            updateTitle,
-            updateDueDate,
             getTaskEditBtn,
             getTaskDeleteBtn,
             getTaskDiv
@@ -55,23 +43,19 @@ const displayController = (() => {
         let addTaskBtn = sublistParts[3];
         let taskControllers = {};
 
-        const updateTitle = (newTitle) => {
-            sublistTitle.textContent = newTitle;
-        }
-
         const createTaskControllers = () => {
-            let tasks = sublist.getTasks();
+            let tasks = sublist.tasks;
             for (let key in tasks) {
                 addTaskController(tasks[key]);
             }
         }
 
         const addTaskController = (taskObj) => {
-            taskControllers[taskObj.getName()] = taskControllerFactory(taskObj);
-            taskControllers[taskObj.getName()].getTaskDeleteBtn().addEventListener('click', e => {
+            taskControllers[taskObj.taskName] = taskControllerFactory(taskObj);
+            taskControllers[taskObj.taskName].getTaskDeleteBtn().addEventListener('click', e => {
                 let taskName = e.currentTarget.value;
                 deleteTaskController(taskName);
-                sublist.removeTask(taskName);
+                delete sublist.tasks[taskName];
             })
         }
 
@@ -106,12 +90,11 @@ const displayController = (() => {
         }
 
         const addTask = (taskObj) => {
-            sublist.addTask(taskObj);
+            sublist.tasks[taskObj.taskName] = taskObj;
 
         }
 
         return {
-            updateTitle,
             addTaskController,
             createTaskControllers,
             deleteTaskController,
@@ -135,7 +118,7 @@ const displayController = (() => {
         let newSublistFormIsDisplayed = false;
 
         const createSublistControllers = () => {
-            let sublists = projectObj.getSublists();
+            let sublists = projectObj.sublists;
             for (let key in sublists) {
                 sublistControllers[key] = sublistControllerFactory(sublists[key]);
                 let currentSublistController = sublistControllers[key];
@@ -215,7 +198,7 @@ const displayController = (() => {
     }
 
     const projectDisplayController = projectObj => {
-        const currentProjectName = projectObj.getName();
+        const currentProjectName = projectObj.projectName;
         let projectToDisplay = projectControllerFactory(projectObj);
         projectToDisplay.createSublistControllers();
 
@@ -253,6 +236,7 @@ const displayController = (() => {
     const projectNavController = (projectsObj) => {
         let projects = projectsObj;
         let projectControllers = {};
+        let newProjectFormIsDisplayed = false;
 
         const createProjectControllers = () => {
             for (let key in projects) {
@@ -272,6 +256,13 @@ const displayController = (() => {
 
         const getProjectControllers = () => {
             return projectControllers;
+        }
+
+        const activateAddProjectBtn = () => {
+            const addProjectBtn = document.getElementById('add-project-btn');
+            addProjectBtn.addEventListener('click', () => {
+
+            })
         }
 
         return {

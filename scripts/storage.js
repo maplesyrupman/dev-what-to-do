@@ -2,7 +2,7 @@ const storage = (() => {
     let projects = {};
 
     const addTask = (taskObj, parentSublistName, grandparentProjectName) => {
-        projects[grandparentProjectName][parentSublistName].addTask(taskObj);
+        projects[grandparentProjectName][parentSublistName][taskObj[taskName]] = taskObj;
         saveProjectsToLocal();
     }
 

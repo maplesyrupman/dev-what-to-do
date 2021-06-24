@@ -57,7 +57,7 @@ const domOps = (() => {
     }
 
     const createNewProjectTab = (projectObj) => {
-        let projectName = projectObj.getName();
+        let projectName = projectObj.projectName;
         const projectTabDiv = document.createElement('div');
             projectTabDiv.classList.add('project-tab-div');
             projectTabDiv.setAttribute('id', projectName);
@@ -84,17 +84,17 @@ const domOps = (() => {
     const createSublist = (sublistObj) => {
         const sublistDiv = document.createElement('div');
         sublistDiv.classList.add('sublist-div');
-        sublistDiv.dataset.parent = sublistObj.getParentName();
+        sublistDiv.dataset.parent = sublistObj.parent;
         const sublistTitle = document.createElement('h3');
-        sublistTitle.textContent = sublistObj.getName();
+        sublistTitle.textContent = sublistObj.sublistName;
         sublistTitle.classList.add('sublist-title');
         const taskContainer = document.createElement('div');
         taskContainer.classList.add('task-container');
         const addTaskBtn = document.createElement('div');
         addTaskBtn.innerHTML = '<i class="fas fa-plus"></i>';
         addTaskBtn.classList.add('add-task-btn');
-        addTaskBtn.dataset.parentSublist = sublistObj.getName();
-        addTaskBtn.dataset.grandparentProject = sublistObj.getParentName();
+        addTaskBtn.dataset.parentSublist = sublistObj.sublistName;
+        addTaskBtn.dataset.grandparentProject = sublistObj.parent;
 
         sublistDiv.appendChild(sublistTitle);
         sublistDiv.appendChild(taskContainer);
@@ -148,11 +148,11 @@ const domOps = (() => {
 
     const createTask = (taskObj) => {
         let task = taskObj;
-        let taskName = task.getName();
+        let taskName = task.taskName;
         const taskDiv = document.createElement('div');
         taskDiv.classList.add('task-div');
-        taskDiv.dataset.parent = taskObj.getParentName();
-        taskDiv.dataset.grandparent = taskObj.getGrandparentName();
+        taskDiv.dataset.parent = taskObj.parent;
+        taskDiv.dataset.grandparent = taskObj.grandparent;
         const taskCheckbox = document.createElement('input');
         taskCheckbox.type = 'checkbox';
         taskCheckbox.name = 'taskCheckbox';
@@ -163,7 +163,7 @@ const domOps = (() => {
         taskTitle.textContent = taskName;
         taskTitle.classList.add('task-title');
         const taskDueDate = document.createElement('p');
-        taskDueDate.textContent = task.getDueDate();
+        taskDueDate.textContent = task.taskDueDate;
         taskDueDate.classList.add('task-due-date');
         const btnContainer = document.createElement('div');
         btnContainer.classList.add('btn-container');
