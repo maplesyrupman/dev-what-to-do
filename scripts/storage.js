@@ -2,7 +2,7 @@ const storage = (() => {
     let projects = {};
 
     const addTask = (taskObj, parentSublistName, grandparentProjectName) => {
-        projects[grandparentProjectName][parentSublistName][taskObj[taskName]] = taskObj;
+        projects[grandparentProjectName][parentSublistName][taskObj.taskName] = taskObj;
         saveProjectsToLocal();
     }
 
@@ -35,17 +35,13 @@ const storage = (() => {
         return projects;
     }
 
-    const simplify = (projects) => {
-        let simplifiedProjects = {};
-        let projectValues = Object.values(projects);
-        for (let value of projectValues) {
-            simplifiedProjects[value.getName()] = value.getSimple();
-        }
-        return simplifiedProjects;
+    const setProjects = (projectsObj) => {
+        projects = projectsObj;
+        saveProjectsToLocal();
     }
 
     const saveProjectsToLocal = () => {
-        const projects_serialized = JSON.stringify(simplify(projects));
+        const projects_serialized = JSON.stringify(projects);
         localStorage.setItem('projects', projects_serialized);
     }
 
@@ -65,6 +61,7 @@ const storage = (() => {
         addProject, 
         deleteProject,
         getProjects,
+        setProjects,
         getProjectsFromLocal,
     }
 })();

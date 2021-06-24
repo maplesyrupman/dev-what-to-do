@@ -3,7 +3,6 @@ import app from './app.js'
 import storage from './storage.js'
 
 const displayController = (() => {
-    const projectNavTabs = document.getElementById('project-nav-tabs');
     const projectDisplay = document.getElementById('project-display');
 
     const taskControllerFactory = (taskObj) => {
@@ -234,6 +233,7 @@ const displayController = (() => {
     }
 
     const projectNavController = (projectsObj) => {
+        const projectNavTabs = document.getElementById('project-nav-tabs');
         let projects = projectsObj;
         let projectControllers = {};
         let newProjectFormIsDisplayed = false;
@@ -258,10 +258,43 @@ const displayController = (() => {
             return projectControllers;
         }
 
+        const clearProjectNav = () => {
+            while (projectNavTabs.hasChildNodes()) {
+                projectNavTabs.lastChild.remove();
+            }
+        }
+
         const activateAddProjectBtn = () => {
             const addProjectBtn = document.getElementById('add-project-btn');
             addProjectBtn.addEventListener('click', () => {
+                if (newProjectFormIsDisplayed) {
+                    alert('Please finish creating the new project you have started before creating another');
+                    return;
+                }
+                newProjectFormIsDisplayed = true;
+                const newProjectFormParts = domOps.createNewProjectForm();
+                activateConfirmProjectBtn(newProjectFormParts);
+                activateCancleProjectBtn(newProjectFormParts[3]);
+                projectNavTabs.appendChild(newProjectFormParts[0]);
+            });
+        }
 
+        const activateConfirmProjectBtn = (newProjectFormParts) => {
+            newProjectFormParts[2].addEventListener('click', () => {
+                storage.addProject(app.projectFactory(newProjectFormParts[1].value), newProjectFormParts[1].value);
+                clearProjectNav();
+                setProjects(storage.getProjects());
+                console.log(storage.getProjects());
+                createProjectControllers();
+                renderProjectNav();
+                newProjectFormIsDisplayed = false;
+            })
+        }
+
+        const activateCancleProjectBtn = (cancleProjectBtn) => {
+            cancleProjectBtn.addEventListener('click', () => {
+                projectNavTabs.lastChild.remove();
+                newProjectFormIsDisplayed = false;
             })
         }
 
@@ -270,6 +303,7 @@ const displayController = (() => {
             createProjectControllers,
             getProjectControllers,
             renderProjectNav,
+            activateAddProjectBtn,
         }
     };
 

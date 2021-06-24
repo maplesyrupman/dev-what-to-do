@@ -38,20 +38,16 @@ let projects = {}
 projects[testProject.projectName] = testProject;
 projects[testProject2.projectName] = testProject2;
 projects[testProject3.projectName] = testProject3; 
-
-
+storage.setProjects(projects);
 
 const projectNavController = displayController.projectNavController(projects);
 projectNavController.createProjectControllers();
 projectNavController.renderProjectNav();
+projectNavController.activateAddProjectBtn();
 
 
 let projectDisplayController = displayController.projectDisplayController(testProject);
 projectDisplayController.renderProject();
 
 let testProjectController = projectNavController.getProjectControllers()['test project'];
-
-console.log(projects)
-
-
 
