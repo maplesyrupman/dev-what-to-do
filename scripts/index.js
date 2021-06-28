@@ -9,8 +9,6 @@ let testProject3 = app.projectFactory('test project 3');
 
 let sublist1 = app.sublistFactory('sublist 1', 'test project');
 let sublist2 = app.sublistFactory('sublist 2', 'test project');
-let sublist3 = app.sublistFactory('sublist 3', 'test project');
-let sublist4 = app.sublistFactory('sublist 4', 'test project');
 
 let task1 = app.taskFactory('test', 'today', 'sublist 1', 'test project');
 let task2 = app.taskFactory('another test', 'tomorrow', 'sublist 1', 'test project');
@@ -28,8 +26,6 @@ sublist2.tasks[task5.taskName] = task5;
 
 testProject.sublists[sublist1.sublistName] = sublist1;
 testProject.sublists[sublist2.sublistName] = sublist2;
-testProject.sublists[sublist3.sublistName] = sublist3;
-testProject.sublists[sublist4.sublistName] = sublist4;
 
 
 
@@ -40,14 +36,11 @@ projects[testProject2.projectName] = testProject2;
 projects[testProject3.projectName] = testProject3; 
 storage.setProjects(projects);
 
-const projectNavController = displayController.projectNavController(projects);
+const projectNavController = displayController.projectNavController(storage.getProjects());
 projectNavController.createProjectControllers();
 projectNavController.renderProjectNav();
 projectNavController.activateAddProjectBtn();
 
 
-let projectDisplayController = displayController.projectDisplayController(testProject);
-projectDisplayController.renderProject();
-
-let testProjectController = projectNavController.getProjectControllers()['test project'];
-
+let projectDisplayController = displayController.projectDisplayController();
+projectDisplayController.renderProject(storage.getProjects()['test project']);

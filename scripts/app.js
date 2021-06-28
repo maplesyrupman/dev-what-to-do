@@ -9,9 +9,9 @@ const app = (() => {
         }
     };
 
-    const sublistFactory = (name, parentProject) => {
+    const sublistFactory = (name, parentProjectName) => {
         let sublistName = name;
-        const parent = parentProject;
+        const parent = parentProjectName;
         let tasks = {};
 
         return {

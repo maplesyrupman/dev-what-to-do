@@ -61,6 +61,7 @@ const domOps = (() => {
         const projectTabDiv = document.createElement('div');
             projectTabDiv.classList.add('project-tab-div');
             projectTabDiv.setAttribute('id', projectName);
+            projectTabDiv.dataset.name = projectName;
             const projectTabName = document.createElement('h2');
             projectTabName.classList.add('project-tab-name');
             projectTabName.textContent = projectName;
@@ -93,8 +94,8 @@ const domOps = (() => {
         const addTaskBtn = document.createElement('div');
         addTaskBtn.innerHTML = '<i class="fas fa-plus"></i>';
         addTaskBtn.classList.add('add-task-btn');
-        addTaskBtn.dataset.parentSublist = sublistObj.sublistName;
-        addTaskBtn.dataset.grandparentProject = sublistObj.parent;
+        addTaskBtn.dataset.parent = sublistObj.sublistName;
+        addTaskBtn.dataset.grandparent = sublistObj.parent;
 
         sublistDiv.appendChild(sublistTitle);
         sublistDiv.appendChild(taskContainer);
@@ -123,7 +124,7 @@ const domOps = (() => {
         return addSublistBtn;
     }
 
-    const createNewSublistForm = () => {
+    const createNewSublistForm = (parentProjectName) => {
         let newSublistFormDiv = document.createElement('div');
         newSublistFormDiv.classList.add('new-sublist-form-div');
         let newSublistForm = document.createElement('form');
@@ -134,6 +135,7 @@ const domOps = (() => {
         let createSublistBtn = document.createElement('button');
         createSublistBtn.innerHTML = '<i class="fas fa-check"></i>';
         createSublistBtn.classList.add('create-btn');
+        createSublistBtn.dataset.parentProjectName = parentProjectName;
         let cancleSublistBtn = document.createElement('button');
         cancleSublistBtn.innerHTML = '<i class="fas fa-times"></i>';
         cancleSublistBtn.classList.add('cancle-btn');
