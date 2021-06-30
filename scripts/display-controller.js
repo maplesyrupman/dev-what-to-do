@@ -82,6 +82,14 @@ const displayController = (() => {
             return sublistDiv;
         }
 
+        const getSublistDeleteBtn = () => {
+            return sublistDeleteBtn;
+        }
+
+        const getSublistEditBtn = () => {
+            return sublistEditBtn;
+        }
+
         const getAddTaskBtn = () => {
             return addTaskBtn;
         }
@@ -102,6 +110,8 @@ const displayController = (() => {
             clearTaskContainer,
             addTaskDivsToContainer,
             getSublistDiv,
+            getSublistDeleteBtn,
+            getSublistEditBtn,
             getAddTaskBtn,
             getTaskContainer,
             addTask,
@@ -196,10 +206,6 @@ const displayController = (() => {
             }
         }
 
-        const appendAddSublistBtn = () => {
-
-        }
-
         const activateAddSublistBtn = () => {
             const addSublistBtn = document.getElementById('addSublistBtn');
             addSublistBtn.addEventListener('click', () => {
@@ -228,6 +234,13 @@ const displayController = (() => {
             })
         }
 
+        const activateSublistDeleteBtn = (sublistDeleteBtn) => {
+            sublistDeleteBtn.addEventListener('click', () => {
+                storage.deleteSublist(sublistDeleteBtn.dataset.name, sublistDeleteBtn.dataset.parent)
+                renderProject(storage.getProjects()[sublistDeleteBtn.dataset.parent]);
+            })
+        }
+
         const renderProject = (projectObj) => {
             clearProjectDisplay();
             let project = projectObj;
@@ -238,6 +251,7 @@ const displayController = (() => {
             let sublistControllers = Object.values(projectToDisplay.getSublistControllers());
             for (let value of sublistControllers) {
                 clearProjectDisplay();
+                activateSublistDeleteBtn(value.getSublistDeleteBtn());
                 value.createTaskControllers();
                 value.addTaskDivsToContainer();
             };
@@ -283,7 +297,6 @@ const displayController = (() => {
                     if (e.target.localName == 'i') {
                         return;
                     }
-                    console.log(e.currentTarget);
                     displayProject(e.currentTarget.dataset.name);
                 })
             }
@@ -291,7 +304,10 @@ const displayController = (() => {
 
         const activateProjectDeleteBtn = (projectDeleteBtn) => {
             projectDeleteBtn.addEventListener('click', e => {
-                console.log(e.target.dataset.name);
+                const projectName = projectDeleteBtn.dataset.project;
+                document.getElementById(projectName).remove();
+                delete projectControllers[projectName];
+                storage.deleteProject(projectName);
             })
         }
 

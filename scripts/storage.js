@@ -20,7 +20,7 @@ const storage = (() => {
     }
 
     const deleteSublist = (sublistName, parentProjectName) => {
-        delete projects[parentProjectName][sublistName];
+        delete projects[parentProjectName].sublists[sublistName];
         saveProjectsToLocal();
         getProjectsFromLocal();
     }
