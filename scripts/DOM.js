@@ -69,11 +69,11 @@ const domOps = (() => {
             buttonDiv.classList.add('project-btn-container');
             const projectEditBtn = document.createElement('button');
             projectEditBtn.innerHTML = '<i class="fas fa-pen"></i>';
-            projectEditBtn.classList.add('project-edit-btn');
+            projectEditBtn.classList.add('edit-delete-btn');
             const projectDeleteBtn = document.createElement('button');
             projectDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
             projectDeleteBtn.dataset.project = projectName;
-            projectDeleteBtn.classList.add('project-delete-btn');
+            projectDeleteBtn.classList.add('edit-delete-btn');
             projectTabDiv.appendChild(projectTabName);
             buttonDiv.appendChild(projectEditBtn);
             buttonDiv.appendChild(projectDeleteBtn);
@@ -86,9 +86,21 @@ const domOps = (() => {
         const sublistDiv = document.createElement('div');
         sublistDiv.classList.add('sublist-div');
         sublistDiv.dataset.parent = sublistObj.parent;
+        const headerDiv = document.createElement('div');
+        headerDiv.classList.add('sublist-header-div');
         const sublistTitle = document.createElement('h3');
         sublistTitle.textContent = sublistObj.sublistName;
         sublistTitle.classList.add('sublist-title');
+        const sublistEditBtn = document.createElement('button');
+        sublistEditBtn.innerHTML = '<i class="fas fa-pen"></i>';
+        sublistEditBtn.classList.add('edit-delete-btn');
+        sublistEditBtn.dataset.parent = sublistObj.parent;
+        sublistEditBtn.dataset.name = sublistObj.sublistName;
+        const sublistDeleteBtn = document.createElement('button');
+        sublistDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        sublistDeleteBtn.classList.add('edit-delete-btn');
+        sublistDeleteBtn.dataset.parent = sublistObj.parent;
+        sublistDeleteBtn.dataset.name = sublistObj.sublistName;
         const taskContainer = document.createElement('div');
         taskContainer.classList.add('task-container');
         const addTaskBtn = document.createElement('div');
@@ -97,11 +109,15 @@ const domOps = (() => {
         addTaskBtn.dataset.parent = sublistObj.sublistName;
         addTaskBtn.dataset.grandparent = sublistObj.parent;
 
-        sublistDiv.appendChild(sublistTitle);
+
+        headerDiv.appendChild(sublistTitle);
+        headerDiv.appendChild(sublistEditBtn);
+        headerDiv.appendChild(sublistDeleteBtn);
+        sublistDiv.appendChild(headerDiv);
         sublistDiv.appendChild(taskContainer);
         sublistDiv.appendChild(addTaskBtn);
         
-        return [sublistDiv, sublistTitle, taskContainer, addTaskBtn];
+        return [sublistDiv, sublistTitle, taskContainer, addTaskBtn, sublistEditBtn, sublistDeleteBtn];
     }
 
     const createAddSublistBtnContainer = (parentProjectName) => {
@@ -172,11 +188,11 @@ const domOps = (() => {
         const taskEditBtn = document.createElement('button');
         taskEditBtn.value = taskName;
         taskEditBtn.innerHTML = '<i class="fas fa-pen"></i>';
-        taskEditBtn.classList.add('task-edit-btn');
+        taskEditBtn.classList.add('edit-delete-btn');
         const taskDeleteBtn = document.createElement('button');
         taskDeleteBtn.setAttribute('value', taskName);
         taskDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-        taskDeleteBtn.classList.add('task-delete-btn');
+        taskDeleteBtn.classList.add('edit-delete-btn');
 
         taskDiv.appendChild(taskCheckbox);
         textContainer.appendChild(taskTitle);

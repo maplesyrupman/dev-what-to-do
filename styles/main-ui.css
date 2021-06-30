@@ -95,7 +95,7 @@
     font-size: 1.65rem;
 }
 
-.button-div {
+.project-btn-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -129,10 +129,16 @@
     height: max-content;
 }
 
+.sublist-header-div {
+    display: flex;
+    flex-direction: row;
+}
+
 .sublist-title {
     font-family: 'Pacifico', cursive;
     font-size: 2rem;
     font-style: italic;
+    
 }
 
 .add-sublist-btn-container {
@@ -165,19 +171,20 @@
     border: 2px solid black;
     border-radius: 15px;
     padding: 15px;
+    gap: 5px;
 }
 
 .text-container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
     font-family: 'Montserrat', sans-seri;
 }
 
 .btn-container {
     display: flex;
     flex-direction: row;
-    padding: 6px;
+    /* padding: 6px; */
     gap: 3px;
 }
 
@@ -193,4 +200,14 @@
 
 .hide {
     display: none;
+}
+
+.edit-delete-btn {
+    background-color: transparent;
+    border: none;
+}
+
+.edit-delete-btn:hover {
+    transform: scale(1.3);
+    cursor: pointer;
 }

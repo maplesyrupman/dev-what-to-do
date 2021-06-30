@@ -40,6 +40,8 @@ const displayController = (() => {
         let sublistTitle = sublistParts[1];
         let taskContainer = sublistParts[2];
         let addTaskBtn = sublistParts[3];
+        const sublistEditBtn = sublistParts[4];
+        const sublistDeleteBtn = sublistParts[5];
         let taskControllers = {};
 
         const createTaskControllers = () => {
@@ -54,7 +56,7 @@ const displayController = (() => {
             taskControllers[taskObj.taskName].getTaskDeleteBtn().addEventListener('click', e => {
                 let taskName = e.currentTarget.value;
                 deleteTaskController(taskName);
-                delete sublist.tasks[taskName];
+                storage.deleteTask(taskObj.taskName, taskObj.parent, taskObj.grandparent);
             })
         }
 
@@ -115,6 +117,14 @@ const displayController = (() => {
         let sublistControllers = {};
         let newTaskFormIsDisplayed = false;
 
+        const getProjectEditBtn =  () => {
+            return projectEditBtn;
+        }
+
+        const getProjectDeleteBtn = () => {
+            return projectDeleteBtn;
+        }
+
         const createSublistControllers = () => {
             let sublists = projectObj.sublists;
             for (let key in sublists) {
@@ -170,6 +180,8 @@ const displayController = (() => {
             createSublistControllers,
             getProjectTabDiv,
             getSublistControllers,
+            getProjectEditBtn, 
+            getProjectDeleteBtn,
         }
 
     }
@@ -264,12 +276,23 @@ const displayController = (() => {
 
         const renderProjectNav = () => {
             for (let key in projectControllers) {
-                projectNavTabs.appendChild(projectControllers[key].getProjectTabDiv());
-                projectControllers[key].getProjectTabDiv().addEventListener('click', e => {
+                let currentController = projectControllers[key];
+                projectNavTabs.appendChild(currentController.getProjectTabDiv());
+                activateProjectDeleteBtn(currentController.getProjectDeleteBtn());
+                currentController.getProjectTabDiv().addEventListener('click', e => {
+                    if (e.target.localName == 'i') {
+                        return;
+                    }
+                    console.log(e.currentTarget);
                     displayProject(e.currentTarget.dataset.name);
-                    console.log(e.currentTarget.dataset.name);
                 })
             }
+        }
+
+        const activateProjectDeleteBtn = (projectDeleteBtn) => {
+            projectDeleteBtn.addEventListener('click', e => {
+                console.log(e.target.dataset.name);
+            })
         }
 
         const displayProject = (projectName) => {
@@ -307,7 +330,6 @@ const displayController = (() => {
                 storage.addProject(app.projectFactory(newProjectFormParts[1].value), newProjectFormParts[1].value);
                 clearProjectNav();
                 setProjects(storage.getProjects());
-                console.log(storage.getProjects());
                 createProjectControllers();
                 renderProjectNav();
                 newProjectFormIsDisplayed = false;

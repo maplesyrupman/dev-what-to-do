@@ -8,7 +8,7 @@ const storage = (() => {
     }
 
     const deleteTask = (taskName, parentSublistName, grandparentProjectName) => {
-        delete projects[grandparentProjectName][parentSublistName][taskName];
+        delete projects[grandparentProjectName].sublists[parentSublistName].tasks[taskName];
         saveProjectsToLocal();
         getProjectsFromLocal();
     }
@@ -29,7 +29,6 @@ const storage = (() => {
         projects[projectName] = projectObj;
         saveProjectsToLocal();
         getProjectsFromLocal();
-        console.log(projects);
     }
 
     const deleteProject = (projectName) => {
@@ -55,9 +54,11 @@ const storage = (() => {
     const getProjectsFromLocal = () => {
         const retrievedProjects = localStorage.getItem('projects');
         if (retrievedProjects == null) {
-            projects = {};
+            projects = {Default: {projectName: 'Default', sublists: {}}};
         }
-        projects = JSON.parse(retrievedProjects);
+        else {
+            projects = JSON.parse(retrievedProjects);
+        }
     }
 
     return {
