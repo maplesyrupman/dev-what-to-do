@@ -37,6 +37,14 @@ const storage = (() => {
         getProjectsFromLocal();
     }
 
+    const updateProjectName = (oldProjectName, newProjectName) => {
+        projects[newProjectName] = projects[oldProjectName];
+        projects[newProjectName].projectName = newProjectName;
+        delete projects[oldProjectName];
+        saveProjectsToLocal();
+        getProjectsFromLocal();
+    }
+
     const getProjects = () => {
         return projects;
     }
@@ -68,6 +76,7 @@ const storage = (() => {
         deleteSublist,
         addProject, 
         deleteProject,
+        updateProjectName,
         getProjects,
         setProjects,
         getProjectsFromLocal,

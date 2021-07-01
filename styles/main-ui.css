@@ -131,7 +131,9 @@
 
 .sublist-header-div {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
 
 .sublist-title {

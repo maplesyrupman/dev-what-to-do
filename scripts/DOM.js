@@ -69,6 +69,7 @@ const domOps = (() => {
             buttonDiv.classList.add('project-btn-container');
             const projectEditBtn = document.createElement('button');
             projectEditBtn.innerHTML = '<i class="fas fa-pen"></i>';
+            projectEditBtn.dataset.project = projectName;
             projectEditBtn.classList.add('edit-delete-btn');
             const projectDeleteBtn = document.createElement('button');
             projectDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
@@ -79,7 +80,7 @@ const domOps = (() => {
             buttonDiv.appendChild(projectDeleteBtn);
             projectTabDiv.appendChild(buttonDiv);
 
-            return [projectTabDiv, projectTabName, projectEditBtn, projectDeleteBtn];
+            return [projectTabDiv, projectTabName, projectEditBtn, projectDeleteBtn, buttonDiv];
     }
 
     const createSublist = (sublistObj) => {
@@ -91,6 +92,7 @@ const domOps = (() => {
         const sublistTitle = document.createElement('h3');
         sublistTitle.textContent = sublistObj.sublistName;
         sublistTitle.classList.add('sublist-title');
+        const buttonDiv = document.createElement('div');
         const sublistEditBtn = document.createElement('button');
         sublistEditBtn.innerHTML = '<i class="fas fa-pen"></i>';
         sublistEditBtn.classList.add('edit-delete-btn');
@@ -111,8 +113,9 @@ const domOps = (() => {
 
 
         headerDiv.appendChild(sublistTitle);
-        headerDiv.appendChild(sublistEditBtn);
-        headerDiv.appendChild(sublistDeleteBtn);
+        buttonDiv.appendChild(sublistEditBtn);
+        buttonDiv.appendChild(sublistDeleteBtn);
+        headerDiv.appendChild(buttonDiv);
         sublistDiv.appendChild(headerDiv);
         sublistDiv.appendChild(taskContainer);
         sublistDiv.appendChild(addTaskBtn);
@@ -205,8 +208,28 @@ const domOps = (() => {
         return [taskDiv, taskTitle, taskDueDate, taskEditBtn, taskDeleteBtn];
     }
 
+    const createEditProjectForm = (currentName) => {
+        const editProjectFormDiv = document.createElement('div');
+        const nameField = document.createElement('input');
+        nameField.setAttribute('type', 'text');
+        nameField.setAttribute('placeholder', currentName);
+        const buttonDiv = document.createElement('div');
+        const confirmChangeBtn = document.createElement('button');
+        confirmChangeBtn.innerHTML = '<i class="fas fa-check"></i>';
+        const cancleChangeBtn = document.createElement('button');
+        cancleChangeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        buttonDiv.appendChild(confirmChangeBtn);
+        buttonDiv.appendChild(cancleChangeBtn);
+
+        editProjectFormDiv.appendChild(nameField);
+        editProjectFormDiv.appendChild(buttonDiv);
+
+        return  [editProjectFormDiv, nameField, confirmChangeBtn, cancleChangeBtn];
+    }
+
     return {
         createNewProjectForm,
+        createEditProjectForm,
         createNewProjectTab,
         createNewSublistForm,
         createSublist,

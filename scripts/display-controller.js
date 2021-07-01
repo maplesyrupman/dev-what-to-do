@@ -124,6 +124,7 @@ const displayController = (() => {
         let projectTabName = projectParts[1];
         let projectEditBtn = projectParts[2];
         let projectDeleteBtn = projectParts[3];
+        let buttonDiv = projectParts[4];
         let sublistControllers = {};
         let newTaskFormIsDisplayed = false;
 
@@ -133,6 +134,14 @@ const displayController = (() => {
 
         const getProjectDeleteBtn = () => {
             return projectDeleteBtn;
+        }
+
+        const getProjectTabName = () => {
+            return projectTabName;
+        }
+
+        const getButtonDiv = () => {
+            return buttonDiv;
         }
 
         const createSublistControllers = () => {
@@ -163,7 +172,6 @@ const displayController = (() => {
             createTaskBtn.addEventListener('click', () => {
                 let newTask = app.taskFactory(newTaskFormParts[1].value, newTaskFormParts[2].value, parent, grandparent);
                 storage.addTask(newTask, parent, grandparent);
-                console.log(storage.getProjects()[grandparent]);
                 currentSublistController.addTaskController(newTask);
                 currentSublistController.clearTaskContainer();
                 currentSublistController.addTaskDivsToContainer();
@@ -192,6 +200,8 @@ const displayController = (() => {
             getSublistControllers,
             getProjectEditBtn, 
             getProjectDeleteBtn,
+            getProjectTabName, 
+            getButtonDiv,
         }
 
     }
@@ -292,14 +302,61 @@ const displayController = (() => {
             for (let key in projectControllers) {
                 let currentController = projectControllers[key];
                 projectNavTabs.appendChild(currentController.getProjectTabDiv());
+                activateProjectEditBtn(currentController.getProjectEditBtn(), currentController);
                 activateProjectDeleteBtn(currentController.getProjectDeleteBtn());
                 currentController.getProjectTabDiv().addEventListener('click', e => {
-                    if (e.target.localName == 'i') {
+                    if (e.currentTarget.localName != 'div') {
                         return;
                     }
-                    displayProject(e.currentTarget.dataset.name);
+                    if (e.currentTarget.dataset.name) {
+                        displayProject(e.currentTarget.dataset.name);
+                    }
+
                 })
             }
+        }
+
+        const activateProjectEditBtn = (projectEditBtn, currentController) => {
+            const projectName = projectEditBtn.dataset.project;
+            projectEditBtn.addEventListener('click', () => {
+                const projectTabDiv = currentController.getProjectTabDiv();
+                const editProjectFormParts = domOps.createEditProjectForm();
+                hideTabContents(currentController);
+                projectTabDiv.appendChild(editProjectFormParts[0]);
+                activateCancleChangeBtn(editProjectFormParts[3], currentController);
+                activateConfirmChangeBtn(editProjectFormParts[2], editProjectFormParts[1], projectName, currentController);
+            })
+        }
+
+        const activateConfirmChangeBtn = (confirmChangeBtn, nameField, oldProjectName, currentProjectController) => {
+            confirmChangeBtn.addEventListener('click', () => {
+                storage.updateProjectName(oldProjectName, nameField.value);
+                currentProjectController.getProjectTabName().textContent = nameField.value;
+                currentProjectController.getProjectTabDiv().lastChild.remove();
+                currentProjectController.getProjectTabDiv().dataset.name = nameField.value;
+                projectControllers[nameField.value] = currentProjectController;
+                delete projectControllers[oldProjectName];
+                displayOriginalTabContents(currentProjectController);
+                setProjects(storage.getProjects());
+                console.log(projectControllers);
+            })
+        }
+
+        const activateCancleChangeBtn = (cancleChangeBtn, currentProjectController) => {
+            cancleChangeBtn.addEventListener('click', () => {
+                currentProjectController.getProjectTabDiv().lastChild.remove();
+                displayOriginalTabContents(currentProjectController);
+            })
+        }
+
+        const hideTabContents = (currentProjectController) => {
+            currentProjectController.getProjectTabName().classList.add('hide');
+            currentProjectController.getButtonDiv().classList.add('hide');
+        }
+
+        const displayOriginalTabContents = (currentProjectController) => {
+            currentProjectController.getProjectTabName().classList.remove('hide');
+            currentProjectController.getButtonDiv().classList.remove('hide');
         }
 
         const activateProjectDeleteBtn = (projectDeleteBtn) => {
