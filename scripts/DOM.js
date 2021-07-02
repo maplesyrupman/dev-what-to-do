@@ -120,7 +120,7 @@ const domOps = (() => {
         sublistDiv.appendChild(taskContainer);
         sublistDiv.appendChild(addTaskBtn);
         
-        return [sublistDiv, sublistTitle, taskContainer, addTaskBtn, sublistEditBtn, sublistDeleteBtn];
+        return [sublistDiv, sublistTitle, taskContainer, addTaskBtn, sublistEditBtn, sublistDeleteBtn, headerDiv, buttonDiv];
     }
 
     const createAddSublistBtnContainer = (parentProjectName) => {
@@ -227,11 +227,31 @@ const domOps = (() => {
         return  [editProjectFormDiv, nameField, confirmChangeBtn, cancleChangeBtn];
     }
 
+    const createEditSublistForm = (currentName) => {
+        const editSublistFormDiv = document.createElement('div');
+        const nameField = document.createElement('input');
+        nameField.setAttribute('type', 'text');
+        nameField.setAttribute('placeholder', currentName);
+        const buttonDiv = document.createElement('div');
+        const confirmBtn = document.createElement('button');
+        const cancleBtn = document.createElement('button');
+        confirmBtn.innerHTML = '<i class="fas fa-check"></i>';
+        cancleBtn.innerHTML = '<i class="fas fa-times"></i>';
+        buttonDiv.appendChild(confirmBtn); 
+        buttonDiv.appendChild(cancleBtn); 
+
+        editSublistFormDiv.appendChild(nameField);
+        editSublistFormDiv.appendChild(buttonDiv);
+
+        return [editSublistFormDiv, nameField, confirmBtn, cancleBtn];
+    }
+
     return {
         createNewProjectForm,
         createEditProjectForm,
         createNewProjectTab,
         createNewSublistForm,
+        createEditSublistForm,
         createSublist,
         createAddSublistBtnContainer,
         createTask,

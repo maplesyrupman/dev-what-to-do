@@ -25,6 +25,21 @@ const storage = (() => {
         getProjectsFromLocal();
     }
 
+    const updateSublistName = (parentProject, oldName, newName) => {
+        console.log(oldName);
+        projects[parentProject].sublists[newName] = projects[parentProject].sublists[oldName];
+        console.log(projects[parentProject].sublists);
+        projects[parentProject].sublists[newName].sublistName = newName;
+        projects[parentProject].sublists[newName].parentProject = parentProject;
+        delete projects[parentProject].sublists[oldName];
+        let tasks = projects[parentProject].sublists[newName].tasks;
+        for (let value of Object.values(tasks)) {
+            value.parent = newName;
+        }
+        saveProjectsToLocal();
+        getProjectsFromLocal();
+    }
+
     const addProject = (projectObj, projectName) => {
         projects[projectName] = projectObj;
         saveProjectsToLocal();
@@ -81,6 +96,7 @@ const storage = (() => {
         deleteTask,
         addSublist,
         deleteSublist,
+        updateSublistName,
         addProject, 
         deleteProject,
         updateProjectName,

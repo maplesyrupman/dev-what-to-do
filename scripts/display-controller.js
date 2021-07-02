@@ -42,10 +42,13 @@ const displayController = (() => {
         let addTaskBtn = sublistParts[3];
         const sublistEditBtn = sublistParts[4];
         const sublistDeleteBtn = sublistParts[5];
+        const sublistHeaderDiv = sublistParts[6];
+        const buttonDiv = sublistParts[7];
         let taskControllers = {};
 
         const createTaskControllers = () => {
             let tasks = sublist.tasks;
+            taskControllers = {};
             for (let key in tasks) {
                 addTaskController(tasks[key]);
             }
@@ -100,7 +103,22 @@ const displayController = (() => {
 
         const addTask = (taskObj) => {
             sublist.tasks[taskObj.taskName] = taskObj;
+        }
 
+        const getSublistTitle = () => {
+            return sublistTitle;
+        }
+
+        const getHeaderDiv = () => {
+            return sublistHeaderDiv;
+        }
+
+        const getButtonDiv = () => {
+            return buttonDiv;
+        }
+
+        const getSublistObj = () => {
+            return sublist;
         }
 
         return {
@@ -110,11 +128,15 @@ const displayController = (() => {
             clearTaskContainer,
             addTaskDivsToContainer,
             getSublistDiv,
+            getSublistTitle,
+            getHeaderDiv,
+            getButtonDiv,
             getSublistDeleteBtn,
             getSublistEditBtn,
             getAddTaskBtn,
             getTaskContainer,
             addTask,
+            getSublistObj,
         }
     }
 
@@ -259,6 +281,41 @@ const displayController = (() => {
             })
         }
 
+        const activateSublistEditBtn = (sublistEditBtn, sublistName, sublistController) => {
+            sublistEditBtn.addEventListener('click', () => {
+                let sublistHeaderDiv = sublistController.getHeaderDiv();
+                let sublistBtnDiv = sublistController.getButtonDiv();
+                let sublistTitle = sublistController.getSublistTitle();
+                sublistBtnDiv.classList.add('hide');
+                sublistTitle.classList.add('hide');
+                let editSublistFormParts = domOps.createEditSublistForm(sublistName);
+                sublistHeaderDiv.appendChild(editSublistFormParts[0]);
+                activateCancleChangeBtn(editSublistFormParts[3], sublistController);
+                activateConfirmChangeBtn(editSublistFormParts[2], editSublistFormParts[1], sublistTitle.textContent, sublistController);
+                sublistController.clearTaskContainer();
+                sublistController.createTaskControllers();
+                sublistController.addTaskDivsToContainer();
+            })
+        }
+
+        const activateCancleChangeBtn = (cancleChangeBtn, sublistController) => {
+            cancleChangeBtn.addEventListener('click', () => {
+                sublistController.getSublistTitle().classList.remove('hide');
+                sublistController.getButtonDiv().classList.remove('hide');
+                sublistController.getHeaderDiv().lastChild.remove();
+            })
+        }
+
+        const activateConfirmChangeBtn = (confirmChangeBtn, nameField, oldSublistName, sublistController) => {
+            confirmChangeBtn.addEventListener('click', () => {
+                storage.updateSublistName(sublistController.getSublistObj().parent, oldSublistName, nameField.value);
+                sublistController.getSublistTitle().textContent = nameField.value;
+                sublistController.getSublistTitle().classList.remove('hide');
+                sublistController.getButtonDiv().classList.remove('hide');
+                sublistController.getHeaderDiv().lastChild.remove();
+            })
+        }
+
         const renderProject = (projectObj) => {
             clearProjectDisplay();
             let project = projectObj;
@@ -268,8 +325,8 @@ const displayController = (() => {
             projectToDisplay.createSublistControllers();
             let sublistControllers = Object.values(projectToDisplay.getSublistControllers());
             for (let value of sublistControllers) {
-                clearProjectDisplay();
                 activateSublistDeleteBtn(value.getSublistDeleteBtn());
+                activateSublistEditBtn(value.getSublistEditBtn(), value.getSublistTitle().textContent, value);
                 value.createTaskControllers();
                 value.addTaskDivsToContainer();
             };
@@ -328,7 +385,7 @@ const displayController = (() => {
             const projectName = projectEditBtn.dataset.project;
             projectEditBtn.addEventListener('click', () => {
                 const projectTabDiv = currentController.getProjectTabDiv();
-                const editProjectFormParts = domOps.createEditProjectForm();
+                const editProjectFormParts = domOps.createEditProjectForm(projectName);
                 hideTabContents(currentController);
                 projectTabDiv.appendChild(editProjectFormParts[0]);
                 activateCancleChangeBtn(editProjectFormParts[3], currentController);
