@@ -228,6 +228,7 @@ const displayController = (() => {
                 const addSublistBtnContainer = addSublistBtn.parentNode;
                 addSublistBtnContainer.appendChild(newSublistFormParts[0]);
                 activateConfirmSublistBtn(newSublistFormParts[1], newSublistFormParts[2]);
+                activateCancleSublistBtn(newSublistFormParts[3], addSublistBtnContainer);
                 addSublistBtn.classList.add('hide');
             });
         }
@@ -241,6 +242,13 @@ const displayController = (() => {
                 projectToDisplay.createSublistControllers();
                 renderProject(project);
                 newSublistFormIsDisplayed = false;
+            })
+        }
+
+        const activateCancleSublistBtn = (cancleSublistBtn, addSublistBtnContainer) => {
+            cancleSublistBtn.addEventListener('click', () => {
+                addSublistBtnContainer.lastChild.remove();
+                addSublistBtn.classList.remove('hide');
             })
         }
 
