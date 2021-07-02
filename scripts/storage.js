@@ -41,6 +41,13 @@ const storage = (() => {
         projects[newProjectName] = projects[oldProjectName];
         projects[newProjectName].projectName = newProjectName;
         delete projects[oldProjectName];
+        let sublists = projects[newProjectName].sublists;
+        for (let value of Object.values(sublists)) {
+            value.parent = newProjectName;
+            for (let task of Object.values(value.tasks)) {
+                task.grandparent = newProjectName;
+            }
+        }
         saveProjectsToLocal();
         getProjectsFromLocal();
     }

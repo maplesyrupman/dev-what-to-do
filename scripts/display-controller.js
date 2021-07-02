@@ -346,7 +346,6 @@ const displayController = (() => {
                 delete projectControllers[oldProjectName];
                 displayOriginalTabContents(currentProjectController);
                 setProjects(storage.getProjects());
-                console.log(projectControllers);
             })
         }
 

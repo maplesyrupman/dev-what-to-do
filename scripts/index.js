@@ -13,4 +13,3 @@ projectNavController.activateAddProjectBtn();
 
 let projectDisplayController = displayController.projectDisplayController();
 projectDisplayController.renderProject(projects['Default']);
-console.log(projects);
