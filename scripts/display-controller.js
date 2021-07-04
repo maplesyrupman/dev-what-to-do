@@ -56,8 +56,18 @@ const displayController = (() => {
 
         const addTaskController = (taskObj) => {
             taskControllers[taskObj.taskName] = taskControllerFactory(taskObj);
-            taskControllers[taskObj.taskName].getTaskDeleteBtn().addEventListener('click', e => {
-                let taskName = e.currentTarget.value;
+            activateTaskDeleteBtn(taskControllers[taskObj.taskName].getTaskDeleteBtn(), taskObj);
+        }
+
+        const activateTaskEditBtn = (editTaskBtn, taskObj) => {
+            taskEditBtn.addEventListener('click', () => {
+                
+            })
+        }
+
+        const activateTaskDeleteBtn = (deleteTaskBtn, taskObj) => {
+            deleteTaskBtn.addEventListener('click', e => {
+                let taskName = taskObj.taskName;
                 deleteTaskController(taskName);
                 storage.deleteTask(taskObj.taskName, taskObj.parent, taskObj.grandparent);
             })

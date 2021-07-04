@@ -28,7 +28,6 @@ const storage = (() => {
     const updateSublistName = (parentProject, oldName, newName) => {
         console.log(oldName);
         projects[parentProject].sublists[newName] = projects[parentProject].sublists[oldName];
-        console.log(projects[parentProject].sublists);
         projects[parentProject].sublists[newName].sublistName = newName;
         projects[parentProject].sublists[newName].parentProject = parentProject;
         delete projects[parentProject].sublists[oldName];
